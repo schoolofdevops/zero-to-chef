@@ -1,10 +1,10 @@
 ---
-slug: chef-ci-book
-filename: chef-ci-book
-title: Chef CI
+slug: zero-to-chef
+filename: zero-to-chef
+title: Zero to Chef
 subtitle: School Of DevOps
 description: Chef to configure, manage and deploy application.
-author: MeenachiSundaram V
+author: Gourav Shah
 copyright: 2017
 uuid: 492c40c8-2b1b-4141-991a-9dff33b499e5
 pdf_preview_page_range: 1..30
