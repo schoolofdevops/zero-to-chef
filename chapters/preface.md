@@ -1,3 +1,3 @@
 # Preface
 
-This is an example of "frontmatter", which comes before the main text of the book.
+Learn from zero and end up being a chef master.
