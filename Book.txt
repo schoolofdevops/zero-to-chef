@@ -7,6 +7,7 @@ mainmatter:
 #a_chapter.md
 #another_chapter.md
 #yet_another_chapter.md
+01_introduction.md
 03_resources_and_recipies.md
 04_cookbooks.md
 05_tdd_with_test_kitchen.md
@@ -17,3 +18,4 @@ mainmatter:
 10_roles.md
 11_search.md
 12_environments.md
+markdown_cheatsheet.md
