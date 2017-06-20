@@ -1,5 +1,7 @@
 # Cookbook and Run_list
 
+In the previous chapter we gone through resources and recipes, now let us go through Cookbook and Run_list in this chapter.
+
 ## What is Cookbook?
 
 - Cookbook contains configuration and policy which are created using Ruby as its reference language.
@@ -53,7 +55,7 @@ There are two methods to create code. Traditional approach has been to generate 
 
 This method also uses a common test kitchen environment etc.
 
-To find more information on comparison between App and Cookbook approach, refer to [this blog](http://devopsguru.tumblr.com/post/147717124737/chef-generate-app-vs-chef-generate-cookbook-vs) or [this discussion](http://stackoverflow.com/questions/28102653/whats-the-difference-between-chef-app-and-chef-repo).
+To find more information on comparison between App and Cookbook approach, refer to [this blog](http://devopsguru.tumblr.com/post/147717124737/chef-generate-app-vs-chef-generate-cookbook-vs)[^devopsguru_blog].
 
 Example of generating a app is
 
@@ -67,7 +69,9 @@ Example of generating a single cookbook  is
 chef generate cookbook <cookbook_name>
 ```
 
-## Creating Cookbooks for to setup Webapp
+## Generating App and Cookbooks to setup Webapp
+
+Let us generate a repo for our application named "myapp".
 
 * Starts with creating a `myapp` repo for our application.
 
@@ -90,6 +94,8 @@ chef generate cookbook cookbooks/tomcat
 
 ### Java Cookbook
 
+Repo for java cookbook is generated now add resources to our cookbook.
+
 * create a recipe to install `epel-release` and `java-1.7.0-openjdk`.
 * In `myapp/cookbooks/java/recipes/default.rb` create a default recipe with the following content.
 
@@ -103,7 +109,7 @@ package 'java-1.7.0-openjdk' do
 end
 ```
 
-## Tomcat Cookbook ( Exercise)
+## LAB Exercise - Tomcat Cookbook
 
 * Cookbook for `tomcat` is already been generated .
 * Add one recipe `install.rb` to **install** `tomcat` and `tomcat-webapps`.
@@ -161,7 +167,9 @@ kitchen list
 ```
 
 
-### Create a Local Environemnt with Docker
+### Create a Local Environment with Docker
+
+Local environment for testing is created using docker, we will be uing ".kitchen.yml" for creating a test environment.
 
 * Once the **.kitchen.yml** is updated we can create kitchen using `kitchen create` command, from the directory where *.kitchen.yml* file exists.
 
@@ -178,6 +186,8 @@ kitchen list
 * To list the available instances and their information.
 
 ### Adding recipe to run_list
+
+Once the test environment created we need to add recipes to the run_list for testing it.
 
 * Add both java and tomcat recipes to run_list in `.kitchen.yml`.
   * java::default
@@ -366,5 +376,4 @@ include_recipe 'tomcat::config'
 * Now `kitchen converge` and check logs to see `service tomcat` is being **restarted** for every change made in `tomcat.conf` file.
 * Now verify by logging into docker instance using `kitchen login`.
 
----
-[Previous Module](03_resources_and_recipies.md) ------ [Next Module](05_tdd_with_test_kitchen.md)
+[^devopsguru_blog]: Devopsguru Blog - http://devopsguru.tumblr.com/post/147717124737/chef-generate-app-vs-chef-generate-cookbook-vs

@@ -27,7 +27,7 @@ Lets start creating a recipe file named as `base.rb`, with the following resourc
   - Add content to motd `file`
   - Start `ntp` service
 
-Before Writing a recipe lets have a look of available resources [here](https://docs.chef.io/resource.html) to build of recipe.
+Before Writing a recipe lets have a look of available resources [here](https://docs.chef.io/resource.html)[^chef_resources] to build of recipe.
 
 - Our recipe start with creating a `user` resources, for creating a user called `deploy`
 
@@ -37,7 +37,7 @@ user 'deploy' do
 end
 ```
 
-- The above resource will create only user `deploy` to add more information to user resources, [click here](https://docs.chef.io/resource_user.html)
+- The above resource will create only user `deploy` to add more information to user resources, [click here](https://docs.chef.io/resource_user.html)[^user_resources]
 - Let us create password for our user `deploy`, which need to be encrypted.
 - In terminal use this command and enter paswword twice to create a encrypted password `openssl passwd -l`
 
@@ -68,7 +68,7 @@ or
 chef-client -z -l <file_name.rb>
 ```
 
-- In the above we user `--log_level info` info or `-l` to get the detailed information on `chef-client` run.
+- In the above we use `--log_level info` info or `-l` to get the detailed information on `chef-client` run.
 
 ### Using Why (Dry) Run
 
@@ -76,12 +76,12 @@ chef-client -z -l <file_name.rb>
 * To use dry run and check what this recipe will do, we could use `--why-run` or `-w` with __chef-client__ command.
 
 ```console
-chef-client --local-mode --log_level info --why-run base.rb
+chef-client --local-mode --log_level info --why-run <file_name.rb>
 or
-chef-client -z -l -w base.rb
+chef-client -z -l -w <file_name.rb>
 ```
 
-- It tells that `user deploy` **would** be created, and not really created, because of why run mode.
+- By running `chef-client -z -l -w base.rb` tells that `user deploy` **would** be created, and not really created, because of why run mode.
 
 ### Running our first recipe
 
@@ -95,13 +95,14 @@ chef-apply base.rb
 **What it does?**
 
   * It creates user `deploy` with specified UID and home directory in local machine.
+  * Run `id deploy` to check the details of user deploy.
 
 ### Idempotence
 
 Lets run chef-client again to reapply with same options
 
 ```console
-chef-client --local-mode --log_level info base.rb
+chef-client -z -l base.rb
 ```
 
 What happened when we run again the chef-client command?
@@ -141,15 +142,21 @@ notifies :action, 'resource[name]', :timer
 
 A timer specifies the point during the chef-client run at which a notification is run.
 
-**:before**
+```ruby
+:before
+```
 
 Specifies that the action on a notified resource should be run before processing the resource block in which the notification is located.
 
-**:delayed**
+```ruby
+:delayed
+```
 
 Default. Specifies that a notification should be queued up, and then executed at the very end of the chef-client run.
 
-**:immediate, :immediately**
+```ruby
+:immediate, :immediately
+```
 
 Specifies that a notification should be run immediately, per resource notified.
 
@@ -166,7 +173,47 @@ The following properties can be used to define a guard that is evaluated during 
 * only_if - Allow a resource to execute only if the condition returns true.
 
 
-[Click here](https://gist.github.com/initcron/eff10a8e5bde59b356a485539579d634) for an example recipe of common functionality, `deploy_facebooc.rb` file
+[Click here](https://gist.github.com/initcron/eff10a8e5bde59b356a485539579d634)[^deploy_facebooc] for *deploy_facebooc.rb* recipe for common functionality, as shown below
 
----
-[Next Module](04_cookbooks.md)
+```ruby
+package ['libsqlite3-dev', 'sqlite3']
+
+execute 'download_facebooc_from_source' do
+  command 'wget https://github.com/jserv/facebooc/archive/master.zip'
+  cwd '/opt'
+  user 'root'
+  creates '/opt/master.zip'
+  notifies :run, 'execute[extract_facebook_app]', :immediately
+end
+
+
+execute 'extract_facebook_app' do
+  command 'unzip master.zip  && touch /opt/.facebooc_compile'
+  cwd '/opt'
+  user 'root'
+  action :nothing
+end
+
+
+execute 'compile_facebooc' do
+  command 'make all && rm /opt/.facebooc_compile'
+  cwd '/opt/facebooc-master'
+  user 'root'
+  only_if 'test -f /opt/.facebooc_compile'
+  action :run
+end
+
+
+execute 'run_facebooc' do
+  command 'bin/facebooc 16000 &'
+  cwd '/opt/facebooc-master'
+  user 'root'
+  not_if 'netstat -an | grep 16000 | grep -i listen'
+  action :run
+end
+```
+
+
+[^chef_resources]: Chef Resources - https://docs.chef.io/resource.html
+[^user_resources]: User Resources - https://docs.chef.io/resource_user.html
+[^deploy_facebooc]: Deploy_Facebooc Recipie - https://gist.github.com/initcron/eff10a8e5bde59b356a485539579d634
