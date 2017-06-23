@@ -25,15 +25,15 @@ prices:
 
 authors:
   -
-    name: "The Author"
+    name: "Gourav Shah"
     image: /images/testimonial_1.png
-    contact_email: "info@softcover.io"
-    contact_twitter: "@softcover"
-    contact_fb: "http://facebook.com/softcover"
+    contact_email: "marketing@initcron.org"
+    contact_twitter: "@gouravshah"
+    contact_fb: "http://facebook.com/schoolofdevops"
     contact_gh: "@softcover"
     bio:
       |
-        Author bio [link](https://www.softcover.io)
+        Author bio [link](https://www.schoolofdevops.com)
 
 faq:
   -

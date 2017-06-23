@@ -73,17 +73,17 @@ chef generate cookbook <cookbook_name>
 
 Let us generate a repo for our application named "myapp".
 
-* Starts with creating a `myapp` repo for our application.
+* Starts with creating a `sysfoo` repo for our application.
 
 ```console
-chef generate app myapp
+chef generate app sysfoo
 ```
 
 * Let us create a first cookbook for our tomcat application.
 * Inside app repo create a cookbooks for `tomcat` along with its prerequisite cookbook `java`
 
 ```console
-cd myapp
+cd sysfoo
 
 chef generate cookbook cookbooks/java
 
@@ -127,11 +127,12 @@ It could be used for
 
 ###  Creating Test Kitchen Configuration
 
-Test Kitchen comes with a configuration file .kitchen.yml . We have one file for each App and cookbooks. We would edit our top level .kitchen.yml file  available at myapp/.kitchen.yml
+Test Kitchen comes with a configuration file .kitchen.yml . We have one file for each App and cookbooks. We would edit our top level .kitchen.yml file  available at sysfoo/.kitchen.yml
 
 Make sure it matches the following config
 
 ```ruby
+---
 ---
 driver:
   name: docker
@@ -146,25 +147,30 @@ verifier:
 platforms:
   - name: centos-6.8
     driver_config:
+      image: codespaces/chef-node-centos-6
       forward:
         - 8080:8080
 
 suites:
   - name: default
     run_list:
-      - recipe[myapp::default]
+      - recipe[sysfoo::default]
     verifier:
       inspec_tests:
         - test/recipes
     attributes:
+
 ```
 
 Once created, check the current status of the environment by running ,
 
 ```console
-cd /workspace/myapp/
+cd /workspace/sysfoo/
 kitchen list
 ```
+
+TIP: Use yamllint.com to validate .kitchen.yaml if you get an error after running ``` kitchen list ```
+
 
 
 ### Create a Local Environment with Docker
@@ -190,7 +196,7 @@ kitchen list
 Once the test environment created we need to add recipes to the run_list for testing it.
 
 * Add both java and tomcat recipes to run_list in `.kitchen.yml`.
-  * java::default
+  * java::install
   * tomcat::install
   * tomcat::service
 
@@ -198,7 +204,7 @@ Once the test environment created we need to add recipes to the run_list for tes
 suites:
   - name: default
     run_list:
-      - recipe[java::default]
+      - recipe[java::install]
       - recipe[tomcat::install]
       - recipe[tomcat::service]
 ```
@@ -264,7 +270,7 @@ include_recipe 'tomcat::install'
 include_recipe 'tomcat::service'
 ```
 
-* Now change the run_list in `./myapp/test/.kitchen.yml` and add only `tomcat::default`
+* Now change the run_list in `./sysfoo/test/.kitchen.yml` and add only `tomcat::default`
 
 ```ruby
 suites:
@@ -303,7 +309,7 @@ depends 'java'
 chef generate file cookbooks/tomcat tomcat.conf
 ```
 
-* Now `./myapp/cookbooks/tomcat/files/default/tomcat.conf` is generated using chef.
+* Now `./sysfoo/cookbooks/tomcat/files/default/tomcat.conf` is generated using chef.
 * Update `tomcat.conf` with the following content to manage tomcat.
 
 ```ruby
@@ -327,6 +333,9 @@ SHUTDOWN_VERBOSE="false"
 
 CATALINA_PID="/var/run/tomcat.pid"
 ```
+
+{todo}
+TIP: files/default 
 
 ### Recipe to manage cookbook files
 
