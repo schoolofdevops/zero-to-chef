@@ -24,7 +24,7 @@ Before we start looking into what makes puppet a excellent choice for a automati
 
 If you are the one  who is in the business of managing  more than a handful of systems, you should be familiar with the term "Configuration Management" (not to confuse with traditional Software Configuration Management or SCM). Be it physical servers, virtual machines or cloud based setup, infrastructure typically goes through the  following life events,
 
-![alt tag](https://raw.githubusercontent.com/initcron/book-puppet-fundamentals/master/manuscript/images/chapter1/infra_lifecycle.png)
+![infra_lifecycle](images/pictures/infra_lifecycle.png)
 
 * **Provisioning**
   * Provision servers - physical, virtual or cloud. This is where the servers are brought into being.
@@ -72,7 +72,7 @@ Golden images, or templates, or simply os images, are probably the quickest way 
 
 "Infrastructure as a Code" or "Programmable Infrastructure" is where today's generation tools such as Puppet, Chef, Ansible, Salt fit in. These tools essentially allow one to write the state of the infrastructure using a higher level descriptive  language and store it as a code. Since this is a code, one could bring in the best practices that developers have been following for years e.g. using revision control systems, use of sophisticated editors, test driven development, peer programming etc. You could  even build the complete infrastructure from scratch in case of a disaster, as long as you have the code repository, compute resources and data backups in place. Since this code is written in a simple declarative syntax, it is self documenting and offers visibility to all stakeholders into the way infrastructure is built and configured.
 
-![alttag](https://raw.githubusercontent.com/initcron/book-puppet-fundamentals/master/manuscript/images/chapter1/config_mgmt_approaches.png)
+![config_mgmt_approaches](images/pictures/config_mgmt_approaches.png)
 
 
 | Approach     | Advantages     | Disadvantages
