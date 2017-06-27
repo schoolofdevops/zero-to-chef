@@ -143,7 +143,7 @@ Idempotence is a useful property to  ensures that chef maintains the state of th
 
 A typical installation of chef involves  a chef Master, which is a centralized management console and Agents runnings on every node managed.  Any changes to nodes have to go through the chef Master. This streamlines the process of pushing updated.  Instead of iterating over a list of hosts using a for loop or other such methods, or logging into each system to make changes, all you need to do is push updates to chef Server, from where those are automatically propogated to the nodes.
 
-*TODO* ![centralized_management](images/)
+*TODO* ![centralized_management]()
 
 ### Pull Approach
 

@@ -46,7 +46,9 @@ ____underlined____
     * Sub Sub item 2.1.1
 - Bullet list item 3
 
+```
 ![caption](images/path_to_image)
+```
 
 Header
 
