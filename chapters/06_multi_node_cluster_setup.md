@@ -3,9 +3,9 @@
 In this session  we going to simulate a realistic environment with multiple nodes being managed with Chef Server, similar to most of the real world implementations.
 
 This would include 3 components,
-  * Chef Workstation (Could be your personal PC/Laptop)
-  * Chef Server (Hosted or On-Premises )
-  * Chef Clients ('n' number of machines; could be VM, AWS EC2, etc..)
+  * Chef Workstation (Could be your personal PC/Laptop)  
+  * Chef Server (Hosted or On-Premises )  
+  * Chef Clients ('n' number of machines; could be VM, AWS EC2, etc..)  
 
 ![Multi-Node](images/pictures/M2_1.png)
 
@@ -13,27 +13,27 @@ This would include 3 components,
 
 ### Creating an Account
 
-- Now let us create a account in [chef.io](https://manage.chef.io/login) to manage our own hosted chef server.
-- Once account is created, verify and login.
-- Now create a organization of your own and then download chef-starter kit.
+- Now let us create a account in [chef.io](https://manage.chef.io/login) to manage our own hosted chef server.  
+- Once account is created, verify and login.  
+- Now create a organization of your own and then download chef-starter kit.  
 
 ### Setting Up Workstation
 
-- Upload  starter kit to the workspace. Its the **chef-starter.zip** file that you downloaded from chef server.
-- Upload the file to workspace and extract it. You should see `chef-repo` directory created after being extracted.
-- Change into chef-repo directory created as the outcome of above command and validate workstation by running
+- Upload  starter kit to the workspace. Its the **chef-starter.zip** file that you downloaded from chef server.  
+- Upload the file to workspace and extract it. You should see `chef-repo` directory created after being extracted.  
+- Change into chef-repo directory created as the outcome of above command and validate workstation by running  
 
 ```
 knife client list
 ```
 
-The above command will return the **orgname-validator** client. If it does,you have successufully validated all of following,
-  * Workstation software (knife) is installed
-  * You have required configurations, authentication keys/credentials to talk to Chef Server
+The above command will return the **orgname-validator** client. If it does,you have successufully validated all of following,  
+  * Workstation software (knife) is installed  
+  * You have required configurations, authentication keys/credentials to talk to Chef Server  
   * Chef Server is setup and ready
-  * Workstation is able to communicate with Chef Server. There are no network issues etc.
-  * Workstaiton is able to authenticate with Chef Server
-  * Workstation has made the API request and displays  the results returned by Chef Server
+  * Workstation is able to communicate with Chef Server. There are no network issues etc.  
+  * Workstaiton is able to authenticate with Chef Server  
+  * Workstation has made the API request and displays  the results returned by Chef Server  
 
 ![Tree](images/pictures/07_1.png)
 
@@ -52,13 +52,13 @@ Edit /workspace/.chef/knife.rb
 and update cookbook_path from
 
 ```
-cookbook_path            ["#{current_dir}/../cookbooks"]
+cookbook_path  ["#{current_dir}/../cookbooks"]
 
 ```
 to
 
 ```
-cookbook_path            ["cookbooks"]
+cookbook_path       ["cookbooks"]
 
 ```
 

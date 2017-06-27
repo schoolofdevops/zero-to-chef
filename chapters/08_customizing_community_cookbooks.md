@@ -7,10 +7,10 @@
 
 ## Creating myhaproxy cookbook
 
-- Generate a cookbook called `myhaproxy` inside `myapp`.
+- Generate a cookbook called `myhaproxy` inside `sysfoo`.
 
 ```console
-cd /workspace/myapp/
+cd /workspace/chapter8/sysfoo/
 chef generate cookbook cookbooks/myhaproxy
 ```
 
