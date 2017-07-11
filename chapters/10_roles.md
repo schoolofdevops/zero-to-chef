@@ -93,6 +93,3 @@ knife ssh "*:*" -x devops -a ipaddress "sudo chef-client"
 ```console
 knife ssh "*:*" -x devops -a ipaddress "ps aux | grep chef-client"
 ```
-
----
-[Previous Module](09_deployment.md) ------ [Next Module](11_search.md)

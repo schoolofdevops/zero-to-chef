@@ -2,11 +2,11 @@
 
 ## App test vs Cookbook Test
 
+![App test vs Cookbook Test](images/pictures/05_1.png)
+
 * Test configuration can be defined in two different places.
 * One is inside app directory `myapp/test/recipes/default_test.rb`
 * Another one is inside the cookbooks directory `myapp/cookbooks/mycookbook/test/recipes/default_test.rb`
-
-![App test vs Cookbook Test](images/pictures/05_1.png)
 
 ## Inspec vs Serverspec
 
@@ -72,6 +72,3 @@ describe service('tomcat') do
   it { should be_running }
 end
 ```
-
----
-[Previous Module](04_cookbooks.md) ------ [Next Module](06_multi_node_cluster_setup.md)

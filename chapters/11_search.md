@@ -8,7 +8,8 @@
 ## Replacing myhaproxy recipe
 
 - Instead of adding the additional web servers manually to the list of haproxy, we can use search inside recipe to perform that.
-- Now we can change the `myapp/cookbooks/myhaproxy/recipes/default.rb` as follows
+- Now we can change the default recipe as follows
+- Path: _myapp/cookbooks/myhaproxy/recipes/default.rb_
 
 ```ruby
 all_web_nodes = search("node", "role:app")
@@ -54,6 +55,3 @@ knife bootstrap node3 -x devops --sudo -N "app3" -r "role[app]"
 ```
 
 - After a minute we can see the entry of new web-server `node3` added to the load balancer configuration file.
-
----
-[Previous Module](10_roles.md) ------ [Next Module](12_environments.md)

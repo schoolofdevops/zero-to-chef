@@ -3,9 +3,10 @@
 In this session  we going to simulate a realistic environment with multiple nodes being managed with Chef Server, similar to most of the real world implementations.
 
 This would include 3 components,
-  * Chef Workstation (Could be your personal PC/Laptop)  
-  * Chef Server (Hosted or On-Premises )  
-  * Chef Clients ('n' number of machines; could be VM, AWS EC2, etc..)  
+
+* Chef Workstation (Could be your personal PC/Laptop)  
+* Chef Server (Hosted or On-Premises )  
+* Chef Clients ('n' number of machines; could be VM, AWS EC2, etc..)  
 
 ![Multi-Node](images/pictures/M2_1.png)
 
@@ -28,12 +29,13 @@ knife client list
 ```
 
 The above command will return the **orgname-validator** client. If it does,you have successufully validated all of following,  
-  * Workstation software (knife) is installed  
-  * You have required configurations, authentication keys/credentials to talk to Chef Server  
-  * Chef Server is setup and ready
-  * Workstation is able to communicate with Chef Server. There are no network issues etc.  
-  * Workstaiton is able to authenticate with Chef Server  
-  * Workstation has made the API request and displays  the results returned by Chef Server  
+
+* Workstation software (knife) is installed  
+* You have required configurations, authentication keys/credentials to talk to Chef Server  
+* Chef Server is setup and ready
+* Workstation is able to communicate with Chef Server. There are no network issues etc.  
+* Workstaiton is able to authenticate with Chef Server  
+* Workstation has made the API request and displays  the results returned by Chef Server  
 
 ![Tree](images/pictures/07_1.png)
 
@@ -188,6 +190,3 @@ knife bootstrap node2 -x devops --sudo -N app2 -r "recipe[tomcat],recipe[chef-cl
 
 - `--run-list` is used to specify run-list and by applying recipes to the node at the time of bootstrap.
 - Now verify by visiting host ip with port mapping of 8080 to 8081 for node1 http://ip:8081 and port mapping of 8080 to 8082 for node2 http://ip:8082, where the tomcat application is installed and service is up and running.
-
----
-[Previous Module](05_tdd_with_test_kitchen.md) ------ [Next Module](07_data_driven_cookbooks_attr_templates.md)

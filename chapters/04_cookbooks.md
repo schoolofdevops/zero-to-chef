@@ -8,13 +8,19 @@ In the previous chapter we gone through resources and recipes, now let us go thr
 - Cookbook is created with desired scenario in mind and contains required components to support the final scenario of a system.
 - Cookbook contains collection of various components as follows,
 
-|Components|Description|
-|:---|:---|
-|Recipes|Collection of resources in a single file is called recipes.<br/>Recipes are stored in a cookbook.<br/>Recipe must be added to a run_list before it can be used by the chef-client.<br/>Is always executed in the same order as listed in a run_list.
-|Attributes|Attributes are used to override the default settings of the node.<br/>For each cookbook, attributes in the `default.rb` file are loaded first, and then additional attribute files (if present) are loaded in lexical sort order.
-|Files|Distributing any type of files to nodes, these are static files|
-|Templates|A template is a file written in markup language that uses Ruby statements to solve complex configuration scenarios, and to update dynamic values.|
-|Cookbook Versions|A cookbook version is used to maintain a various version of same file with different functionality.<br/> A version may exist for many reasons, such as ensuring the correct use of a third-party component, updating a bug fix, or adding an improvement.|
+|Components        |Description|
+|:---:             |:---|
+|||
+|Recipes           |\pbox{12cm}{Collection of resources in a single file is called recipes. Recipes are stored in a cookbook. Recipe must be added to a run-list before it can be used by the chef-client. Is always executed in the same order as listed in a run-list.}|
+|||
+|Attributes        |\pbox{12cm}{Attributes are used to override the default settings of the node.For each cookbook, attributes in the `default.rb` file are loaded first, and then additional attribute files (if present) are loaded in lexical sort order.}|
+|||
+|Files             |\pbox{12cm}{Distributing any type of files to nodes, these are static files}|
+|||
+|Templates         |\pbox{12cm}{A template is a file written in markup language that uses Ruby statements to solve complex configuration scenarios, and to update dynamic values.}|
+|||
+|Cookbook Versions |\pbox{12cm}{A cookbook version is used to maintain a various version of same file with different functionality. A version may exist for many reasons, such as ensuring the correct use of a third-party component, updating a bug fix, or adding an improvement.}|
+|||
 
 ### Community Cookbooks
 
@@ -132,7 +138,6 @@ Test Kitchen comes with a configuration file .kitchen.yml . We have one file for
 Make sure it matches the following config
 
 ```ruby
----
 ---
 driver:
   name: docker
@@ -253,7 +258,7 @@ kitchen converge
 ## Simplifying Run_list
 
 * Lets make recipes simplified.
-* Call all other recipes from `./myapp/cookbooks/tomcat/recipes/default.rb`
+* From this recipie `./myapp/cookbooks/tomcat/recipes/default.rb` call all other recipes.
 
 ```ruby
 #
@@ -281,7 +286,7 @@ suites:
 
 * Once added, now converge again.
 * You could get error because of java cookbook not found, but tomcat includes java in run_list.
-* Now to add `depended java` add entry in `./myapp/cookbooks/tomcat/metadata.rb` for the java dependency.
+* Now to add *depended java*, add java dependency entry in the metadata file **./myapp/cookbooks/tomcat/metadata.rb**.
 
 ```ruby
 name 'tomcat'
@@ -316,7 +321,8 @@ chef generate file cookbooks/tomcat tomcat.conf
 TOMCAT_CFG_LOADED="1"
 
 JAVA_HOME="/usr/lib/jvm/jre"
-JAVA_OPTS="-Xms64m -Xmx128m -XX:MaxPermSize=128M -Djava.security.egd=file:/dev/./urandom"
+JAVA_OPTS="-Xms64m -Xmx128m -XX:MaxPermSize=128M  \
+-Djava.security.egd=file:/dev/./urandom"
 
 CATALINA_BASE="/usr/share/tomcat"
 CATALINA_HOME="/usr/share/tomcat"
@@ -335,7 +341,7 @@ CATALINA_PID="/var/run/tomcat.pid"
 ```
 
 {todo}
-TIP: files/default 
+TIP: files/default
 
 ### Recipe to manage cookbook files
 

@@ -92,7 +92,8 @@ chef generate attribute cookbooks/tomcat default
 ```
 
 - It will create a file as follows `cookbooks/tomcat/attributes/default.rb`
-- Now we add the attributes and its value in `default.rb`(cookbooks/tomcat/attributes/default.rb)
+- Now we add the attributes and its value in `default.rb`
+- Path: _cookbooks/tomcat/attributes/default.rb_
 
 ```ruby
 default['tomcat']['user'] = 'tomcat'
@@ -180,7 +181,8 @@ root@ws:/workspace/myapp# ohai platform_family
 root@ws:/workspace/myapp# kitchen login
 Last login: Thu May  4 05:50:20 2017 from 172.17.0.1
 [kitchen@9af3a004e202 ~]$ ohai platform_family
-[2017-05-04T05:58:19+00:00] INFO: The plugin path /etc/chef/ohai/plugins does not exist. Skipping...
+[2017-05-04T05:58:19+00:00] INFO: The plugin path /etc/chef/ohai/plugins
+does not exist. Skipping...
 [
   "rhel"
 ]
@@ -195,7 +197,8 @@ root@ws:/workspace/myapp#
 chef generate attribute cookbooks/base default
 ```
 
-- Now add the following content to ` cookbooks/base/attributes/default.rb` attribute file
+- Now add the following content to attribute file
+- Path: _cookbooks/base/attributes/default.rb_
 
 ```ruby
 case node['platform_family']
@@ -244,7 +247,8 @@ kitchen converge
 chef generate template cookbooks/base motd
 ```
 
-- Add content to the template file `cookbooks/base/templates/default/motd.erb`
+- Add the following content to the template file **motd.erb**.
+- Path: _cookbooks/base/templates/default/motd.erb_
 
 ```ruby
 This server is a property of <%= node['org']['name'] %>
@@ -256,7 +260,8 @@ This server is a property of <%= node['org']['name'] %>
        MEMORY     : <%= node['memory']['total'] %>
 ```
 
-- Now add organization name as a user defined attribute in `cookbooks/base/attributes/default.rb` attribute file.
+- Now add organization name as a user defined attribute in *attribute file*
+- Path: _cookbooks/base/attributes/default.rb_
 
 ```ruby
 default['org']['name'] = "XYZ Inc."
@@ -275,7 +280,7 @@ end
 default['org']['name'] = "XYZ Inc."
 ```
 
-- Now add template resource to the recipe `cookbooks/base/recipes/default.rb` file.
+- Now add template resource to the `cookbooks/base/recipes/default.rb` recipe file.
 
 ```ruby
 template '/etc/motd' do
@@ -298,7 +303,8 @@ end
 
 ![Attributes precedence example](images/pictures/06_5.png)
 
-- Now let us define organization name in recipe `cookbooks/base/recipes/default.rb` file, before calling attribute in any resource of a recipe.
+- Now let us define organization name in recipe file, before calling attribute in any resource of a recipe.
+- Path: _cookbooks/base/recipes/default.rb_
 
 ```ruby
 node.default['org']['name'] = "School of Devops"
@@ -358,7 +364,8 @@ chef generate template cookbooks/tomcat tomcat.conf
 chef generate attribute cookbooks/tomcat default
 ```
 
-- Add the following content to attribute `/workspace/myapp/cookbooks/tomcat/attributes/default.rb`
+- Add the following content to attribute file.
+- Path: _/workspace/myapp/cookbooks/tomcat/attributes/default.rb_
 
 ```ruby
 default['tomcat']['user'] = 'tomcat'
@@ -370,10 +377,12 @@ default['tomcat']['user'] = 'tomcat'
 default['tomcat']['group'] = 'tomcat'
 default['tomcat']['java_home'] = '/usr/lib/jvm/jre'
 default['tomcat']['catalina_home'] = '/usr/share/tomcat'
-default['tomcat']['java_opts'] = '-Xms32m -Xmx64m -XX:MaxPermSize=64M -Djava.security.egd=file:/dev/./urandom'
+default['tomcat']['java_opts'] = '-Xms32m -Xmx64m -XX:MaxPermSize=64M  \
+-Djava.security.egd=file:/dev/./urandom'
 ```
 
-- Add the below content to `tomcat.conf.erb` template in `/workspace/myapp/cookbooks/tomcat/templates`
+- Add the below content to `tomcat.conf.erb` template.
+- Path: _/workspace/myapp/cookbooks/tomcat/templates_
 
 ```ruby
 TOMCAT_CFG_LOADED="1"
@@ -397,7 +406,8 @@ SHUTDOWN_VERBOSE="false"
 CATALINA_PID="/var/run/tomcat.pid"
 ```
 
-- Now update `tomcat::config` recipe `/workspace/myapp/cookbooks/tomcat/recipes/config.rb` as mentioned below
+- Now update `tomcat::config` recipe as mentioned below
+- Path: _/workspace/myapp/cookbooks/tomcat/recipes/config.rb_
 
 ```ruby
 template node['tomcat']['config'] do
@@ -415,6 +425,3 @@ end
 - Now change the values of `JAVA_OPTS` in attribute file and then apply again for verifying the changes using template and attribute.
 
 - Also verify using `kitchen login` and run `ps auwwx` command.
-
----
-[Previous Module](06_multi_node_cluster_setup.md) ------ [Next Module](08_customizing_community_cookbooks.md)

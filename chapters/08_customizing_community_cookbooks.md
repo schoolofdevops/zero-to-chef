@@ -58,6 +58,3 @@ include_recipe 'haproxy::default'
 
 - After bootstrapping visit http://ip:8084 to check the load Balancer.
 - It is 8084 because the host port 8080 is mapped to 8084.
-
----
-[Previous Module](07_data_driven_cookbooks_attr_templates.md) ------ [Next Module](09_deployment.md)
