@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Roles - Zero to Chef</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Roles";
+    var mkdocs_page_input_path = "10_roles.md";
+    var mkdocs_page_url = "/10_roles/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Zero to Chef</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01_introduction/">Introduction to Chef</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../03_resources_and_recipies/">Resources and Recipes</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../04_cookbooks/">Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../05_tdd_with_test_kitchen/">TDD with Test Kitchen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../06_multi_node_cluster_setup/">Setting up a Multi Node Cluster</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../07_data_driven_cookbooks_attr_templates/">Data Driven Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../08_customizing_community_cookbooks/">Customizing Community Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09_deployment/">Deploying Sysfoo App</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Roles</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#roles">Roles</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#creating-roles-for-myapp">Creating Roles for myapp</a></li>
+        
+            <li><a class="toctree-l3" href="#uploading-roles-to-chef-server">Uploading Roles to Chef Server</a></li>
+        
+            <li><a class="toctree-l3" href="#applying-roles-to-run_list">Applying Roles to Run_list</a></li>
+        
+            <li><a class="toctree-l3" href="#run-chef-client-on-all-nodes">Run chef-client on all nodes</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11_search/">Search</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12_environments/">Environments</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Zero to Chef</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Roles</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="roles">Roles</h1>
+<ul>
+<li>To create a roles in chef DSL we need to create a folder named <code>roles</code> inside the repo directory <code>(myapp/roles)</code>.</li>
+<li>A sample role file consist of the following,</li>
+<li>Name</li>
+<li>Description</li>
+<li>Run_list</li>
+<li>
+<p>Attributes</p>
+</li>
+<li>
+<p>A sample role file is as follows <code>roles/sample.rb</code></p>
+</li>
+</ul>
+<pre><code class="ruby">name &quot;starter&quot;
+description &quot;An example Chef role&quot;
+run_list &quot;recipe[starter]&quot;
+override_attributes({
+  &quot;starter_name&quot; =&gt; &quot;starter&quot;,
+})
+</code></pre>
+
+<h2 id="creating-roles-for-myapp">Creating Roles for myapp</h2>
+<ul>
+<li>Now create a roles for application and load_balancer.</li>
+<li>myapp/roles/app.rb</li>
+<li>
+<p>myapp/roles/lb.rb</p>
+</li>
+<li>
+<p>Add the following content to app.rb</p>
+</li>
+</ul>
+<pre><code class="ruby">name &quot;app&quot;
+description &quot;Tomcat Application Server&quot;
+run_list &quot;recipe[base]&quot;, &quot;recipe[tomcat]&quot;, &quot;recipe[chef-client]&quot;, &quot;recipe[myapp::deploy]&quot;
+override_attributes({
+  &quot;chef_client&quot; =&gt; { &quot;interval&quot; =&gt; 120,
+                     &quot;splay&quot; =&gt; 30
+                   }
+})
+</code></pre>
+
+<ul>
+<li>Add the following content to lb.rb</li>
+</ul>
+<pre><code class="ruby">name &quot;lb&quot;
+description &quot;Load Balancer&quot;
+run_list &quot;recipe[base]&quot;, &quot;recipe[myhaproxy]&quot;, &quot;recipe[chef-client]&quot;
+override_attributes({
+  &quot;chef_client&quot; =&gt; { &quot;interval&quot; =&gt; 60,
+                     &quot;splay&quot; =&gt; 20
+                   }
+})
+</code></pre>
+
+<h2 id="uploading-roles-to-chef-server">Uploading Roles to Chef Server</h2>
+<ul>
+<li>From the <code>myapp</code> directory using knife command upload the roles from file <strong>app.rb</strong> and <strong>lb.rb</strong></li>
+</ul>
+<pre><code class="console">knife role from file app.rb lb.rb
+</code></pre>
+
+<h2 id="applying-roles-to-run_list">Applying Roles to Run_list</h2>
+<ul>
+<li>Now replace the existing run_list of nodes with roles.</li>
+<li>Add run_list to node1</li>
+</ul>
+<pre><code class="console">knife node run_list set app1 &quot;role[app]&quot;
+</code></pre>
+
+<ul>
+<li>Add run_list to node2</li>
+</ul>
+<pre><code class="console">knife node run_list set app2 &quot;role[app]&quot;
+</code></pre>
+
+<ul>
+<li>Add run_list to node4</li>
+</ul>
+<pre><code class="console">knife node run_list set lb &quot;role[lb]&quot;
+</code></pre>
+
+<h2 id="run-chef-client-on-all-nodes">Run chef-client on all nodes</h2>
+<ul>
+<li>Now we need to run <code>chef-client</code> on all nodes.</li>
+<li>We can do this by passing a <code>sudo chef-client</code> command to all nodes using knife as follows</li>
+</ul>
+<pre><code class="console">knife ssh &quot;*:*&quot; -x devops -a ipaddress &quot;sudo chef-client&quot;
+</code></pre>
+
+<ul>
+<li>Verify the changes using <code>ps aux | grep chef-client</code> on all nodes to find the time interval.</li>
+</ul>
+<pre><code class="console">knife ssh &quot;*:*&quot; -x devops -a ipaddress &quot;ps aux | grep chef-client&quot;
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../11_search/" class="btn btn-neutral float-right" title="Search">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../09_deployment/" class="btn btn-neutral" title="Deploying Sysfoo App"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../09_deployment/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../11_search/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

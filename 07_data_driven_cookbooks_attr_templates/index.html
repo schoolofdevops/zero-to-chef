@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Data Driven Cookbooks - Zero to Chef</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Data Driven Cookbooks";
+    var mkdocs_page_input_path = "07_data_driven_cookbooks_attr_templates.md";
+    var mkdocs_page_url = "/07_data_driven_cookbooks_attr_templates/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Zero to Chef</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01_introduction/">Introduction to Chef</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../03_resources_and_recipies/">Resources and Recipes</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../04_cookbooks/">Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../05_tdd_with_test_kitchen/">TDD with Test Kitchen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../06_multi_node_cluster_setup/">Setting up a Multi Node Cluster</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Data Driven Cookbooks</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#data-driven-cookbooks">Data Driven Cookbooks</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#code-vs-data">Code vs Data</a></li>
+        
+            <li><a class="toctree-l3" href="#node-object">Node Object</a></li>
+        
+            <li><a class="toctree-l3" href="#attributes">Attributes</a></li>
+        
+            <li><a class="toctree-l3" href="#attribute-file">Attribute File</a></li>
+        
+            <li><a class="toctree-l3" href="#parameterizing-tomcat-configurations">Parameterizing Tomcat Configurations</a></li>
+        
+            <li><a class="toctree-l3" href="#platform-specific-cookbooks">Platform Specific cookbooks</a></li>
+        
+            <li><a class="toctree-l3" href="#templates">Templates</a></li>
+        
+            <li><a class="toctree-l3" href="#templatizing-tomcat-cookbook-lab-exercise">Templatizing Tomcat Cookbook (LAB Exercise)</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../08_customizing_community_cookbooks/">Customizing Community Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09_deployment/">Deploying Sysfoo App</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10_roles/">Roles</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11_search/">Search</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12_environments/">Environments</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Zero to Chef</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Data Driven Cookbooks</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="data-driven-cookbooks">Data Driven Cookbooks</h1>
+<h2 id="code-vs-data">Code vs Data</h2>
+<p><img alt="Code vs Data" src="../images/pictures/06_1.png" /></p>
+<ul>
+<li>once the data is taken out of the code then cookbook become generic.</li>
+<li>Generic cookbook can be used with any OS and environments.</li>
+<li>Reusability helps in reducing tonnes and tonnes of time.</li>
+</ul>
+<h2 id="node-object">Node Object</h2>
+<ul>
+<li>It is the representation of each node on chef server in <code>JSON</code> format.</li>
+<li>If we run a <code>chef-client</code> it generates a node object in chef server in case of nodes or in workstation (<code>/nodes/*.json</code>) in case of running locally in workstation.</li>
+</ul>
+<h2 id="attributes">Attributes</h2>
+<p>It is used to specify a detail about node.
+- Attributes are used by the chef-client to understand;
+ - The current state of the node
+ - What the state of the node was at the end of the previous chef-client run
+ - What the state of the node should be at the end of the current chef-client run
+- <code>Attributes</code> are taken in precedence, according to the place where we specify them, as follows;</p>
+<h3 id="system-defined-attributes">System Defined Attributes</h3>
+<h4 id="ohai">OHAI</h4>
+<ul>
+<li>It installs along with <code>chef-client</code>.</li>
+<li>It helps in getting all the information about nodes</li>
+<li>Finding information on node with ohai</li>
+</ul>
+<pre><code class="console">ohai
+ohai ipaddress
+ohai hostname
+ohai memory
+ohai memory/total
+ohai cpu/model_name
+</code></pre>
+
+<ul>
+<li>Referring attributes</li>
+</ul>
+<pre><code class="ruby">node['ipaddress']
+node['hostname']
+node['memory']['total']
+node['cpu']['model_name']
+</code></pre>
+
+<h3 id="user-defined-attributes">User Defined Attributes</h3>
+<ul>
+<li>User defined attributes are located in four places as follows</li>
+<li>Attributes file</li>
+<li>Recipes</li>
+<li>Roles</li>
+<li>Environments</li>
+</ul>
+<h2 id="attribute-file">Attribute File</h2>
+<ul>
+<li>How the attribute file looks like?</li>
+</ul>
+<p><img alt="Attributes file" src="../images/pictures/06_2.png" /></p>
+<ul>
+<li>Precedence is defined</li>
+<li>
+<p>Attribute and its value is defined as per the above format.</p>
+</li>
+<li>
+<p>Now we can access these attributes in <code>recipe</code> or <code>template</code> as shown below.</p>
+</li>
+</ul>
+<p><img alt="Accessing Attributes" src="../images/pictures/06_3.png" /></p>
+<p><strong>Example</strong></p>
+<pre><code class="ruby">template node['tomcat']['config'] do
+  source 'tomcat.conf.erb'
+  owner node['tomcat']['user']
+  group node['tomcat']['group']
+  mode '0644'
+  action :create
+  notifies :restart, &quot;service[#{node['tomcat']['service']}]&quot;, :delayed
+end
+</code></pre>
+
+<h2 id="parameterizing-tomcat-configurations">Parameterizing Tomcat Configurations</h2>
+<ul>
+<li>Now let us start creating attribute file</li>
+<li>Use <code>chef generate</code> to create a file in tomcat cookbook</li>
+</ul>
+<pre><code class="console">chef generate attribute cookbooks/tomcat default
+</code></pre>
+
+<ul>
+<li>It will create a file as follows <code>cookbooks/tomcat/attributes/default.rb</code></li>
+<li>Now we add the attributes and its value in <code>default.rb</code></li>
+<li>Path: <em>cookbooks/tomcat/attributes/default.rb</em></li>
+</ul>
+<pre><code class="ruby">default['tomcat']['user'] = 'tomcat'
+default['tomcat']['group'] = 'tomcat'
+default['tomcat']['config'] = '/etc/tomcat/tomcat.conf'
+default['tomcat']['packages'] = [ 'tomcat', 'tomcat-webapps' ]
+default['tomcat']['service'] = 'tomcat'
+</code></pre>
+
+<ul>
+<li>Now call these attributes in the following recipes</li>
+<li><strong>tomcat::config</strong> will be changed as follows</li>
+</ul>
+<pre><code class="ruby">cookbook_file node['tomcat']['config'] do
+  source 'tomcat.conf'
+  owner node['tomcat']['user']
+  group node['tomcat']['group']
+  mode '0644'
+  action :create
+  notifies :restart, &quot;service[#{node['tomcat']['service']}]&quot;, :delayed
+end
+</code></pre>
+
+<ul>
+<li><strong>tomcat::install</strong> will be changed as follows</li>
+</ul>
+<pre><code class="ruby">package node['tomcat']['packages']
+</code></pre>
+
+<ul>
+<li><strong>tomcat::service</strong> will be changed as follows</li>
+</ul>
+<pre><code class="ruby">service node['tomcat']['service'] do
+   action [ :start, :enable]
+end
+</code></pre>
+
+<ul>
+<li>Now apply it using <code>kitchen converge</code> and then verify using <code>kitchen verify</code>.</li>
+</ul>
+<h2 id="platform-specific-cookbooks">Platform Specific cookbooks</h2>
+<ul>
+<li>Let us convert our first created <code>base.rb</code> recipe into a cookbook.</li>
+<li>Create a cookbook using <code>chef generate</code></li>
+</ul>
+<pre><code class="console">chef generate cookbook cookbooks/base
+</code></pre>
+
+<ul>
+<li>Now move the <code>base.rb</code> to <code>default.rb</code> of base cookbook.</li>
+</ul>
+<pre><code class="console">mv /workspace/base.rb cookbooks/base/recipes/default.rb
+</code></pre>
+
+<ul>
+<li>Add <code>default</code> recipe to <code>.kitchen.yml</code> runlist</li>
+</ul>
+<pre><code class="ruby">suites:
+  - name: default
+    run_list:
+      - recipe[tomcat]
+      - recipe[base::default]
+</code></pre>
+
+<ul>
+<li>Apply using kitchen</li>
+</ul>
+<pre><code class="console">kitchen converge
+</code></pre>
+
+<ul>
+<li><strong>It fails</strong> because the service name for rhel/centos is <code>ntpd</code> and <strong>not ntp</strong> as like debian.</li>
+</ul>
+<p><img alt="centos vs ubuntu" src="../images/pictures/06_4.png" /></p>
+<ul>
+<li>To overcome this we use attribute for platform specific.</li>
+<li>We use system defined attribute <code>platform_family</code> to do this.</li>
+</ul>
+<p><strong>Example</strong> for <code>ohai platform_family</code> is</p>
+<pre><code class="console">root@ws:/workspace/myapp# ohai platform_family
+[
+  &quot;debian&quot;
+]
+root@ws:/workspace/myapp# kitchen login
+Last login: Thu May  4 05:50:20 2017 from 172.17.0.1
+[kitchen@9af3a004e202 ~]$ ohai platform_family
+[2017-05-04T05:58:19+00:00] INFO: The plugin path /etc/chef/ohai/plugins
+does not exist. Skipping...
+[
+  &quot;rhel&quot;
+]
+[kitchen@9af3a004e202 ~]$ logout
+Connection to localhost closed.
+root@ws:/workspace/myapp#
+</code></pre>
+
+<ul>
+<li>Now let us create a create a <em>default attribute</em> file for base cookbook using <code>chef generate</code></li>
+</ul>
+<pre><code class="console">chef generate attribute cookbooks/base default
+</code></pre>
+
+<ul>
+<li>Now add the following content to attribute file</li>
+<li>Path: <em>cookbooks/base/attributes/default.rb</em></li>
+</ul>
+<pre><code class="ruby">case node['platform_family']
+when 'rhel'
+  default['ntp']['service'] = 'ntpd'
+else
+  default['ntp']['service'] = 'ntp'
+end
+</code></pre>
+
+<ul>
+<li>Call the attributes in <code>cookbooks/base/recipes/default.rb</code> recipe</li>
+</ul>
+<pre><code class="ruby">service node['ntp']['service'] do
+  action [ :start, :enable ]
+end
+</code></pre>
+
+<ul>
+<li>Now apply again using kitchen</li>
+</ul>
+<pre><code>kitchen converge
+</code></pre>
+
+<ul>
+<li>It is successful now and service is started based on platform.</li>
+</ul>
+<p><strong>Nano Project</strong> - Add some tests for recipes in base cookbook for different platform.</p>
+<h2 id="templates">Templates</h2>
+<ul>
+<li>A cookbook template is an Embedded Ruby (ERB) template that is used to dynamically generate static text files.</li>
+<li>Templates are great way to manage configuration files for different environment.</li>
+<li>ERB or ERUBIS</li>
+<li>Contains text with dynamic ruby code</li>
+<li>Uses tags to mark dynamic code</li>
+<li>ERB Tags</li>
+<li>Code wrapped in <code>&lt;% %&gt;</code> or <code>&lt;% -%&gt;</code> is a statement that is evaluated.</li>
+<li>Code wrapped in <code>&lt;%= %&gt;</code> is code that is evaluated and the result is placed into the file.</li>
+<li>Harcoded strings dont have to be wrapped in erb tags if they are constant, but Ruby code must be wrapped in erb tags if you want the result of that code to go into your file.</li>
+</ul>
+<h3 id="templatize-motd">Templatize MOTD</h3>
+<ul>
+<li>Generate <code>motd</code> template for <em>base cookbook</em>.</li>
+</ul>
+<pre><code class="console">chef generate template cookbooks/base motd
+</code></pre>
+
+<ul>
+<li>Add the following content to the template file <strong>motd.erb</strong>.</li>
+<li>Path: <em>cookbooks/base/templates/default/motd.erb</em></li>
+</ul>
+<pre><code class="ruby">This server is a property of &lt;%= node['org']['name'] %&gt;
+
+      SYSTEM INFO:
+
+       HOSTNAME   : &lt;%= node['hostname'] %&gt;
+       IP ADDRESS : &lt;%= node['ipaddress'] %&gt;
+       MEMORY     : &lt;%= node['memory']['total'] %&gt;
+</code></pre>
+
+<ul>
+<li>Now add organization name as a user defined attribute in <em>attribute file</em></li>
+<li>Path: <em>cookbooks/base/attributes/default.rb</em></li>
+</ul>
+<pre><code class="ruby">default['org']['name'] = &quot;XYZ Inc.&quot;
+</code></pre>
+
+<ul>
+<li>Complete attribute <code>default.rb</code> of <code>base cookbook</code> is as follows</li>
+</ul>
+<pre><code class="ruby">case node['platform_family']
+when 'rhel'
+  default['ntp']['service'] = 'ntpd'
+else
+  default['ntp']['service'] = 'ntp'
+end
+
+default['org']['name'] = &quot;XYZ Inc.&quot;
+</code></pre>
+
+<ul>
+<li>Now add template resource to the <code>cookbooks/base/recipes/default.rb</code> recipe file.</li>
+</ul>
+<pre><code class="ruby">template '/etc/motd' do
+  source 'motd.erb'
+  owner 'root'
+  group 'root'
+  mode  0644
+end
+</code></pre>
+
+<ul>
+<li>Apply using <code>kitchen converge</code>.</li>
+</ul>
+<h3 id="attributes-precedence">Attributes Precedence</h3>
+<ul>
+<li>Declaring attributes in various places takes precedence one over another.</li>
+</ul>
+<p><img alt="Attributes precedence" src="../images/pictures/M4_1.png" /></p>
+<ul>
+<li>Let us take an example of declaring port as follows</li>
+</ul>
+<p><img alt="Attributes precedence example" src="../images/pictures/06_5.png" /></p>
+<ul>
+<li>Now let us define organization name in recipe file, before calling attribute in any resource of a recipe.</li>
+<li>Path: <em>cookbooks/base/recipes/default.rb</em></li>
+</ul>
+<pre><code class="ruby">node.default['org']['name'] = &quot;School of Devops&quot;
+</code></pre>
+
+<ul>
+<li>Complete recipe <code>default.rb</code> of <code>base cookbook</code> is as follows</li>
+</ul>
+<pre><code class="ruby">user 'deploy' do
+  uid 5001
+  home '/home/deploy'
+  action :create
+  password '$1$Ze1eJK3R$j5I0NRP5WxbZAaeXcfYW7/'
+end
+
+user 'dojo' do
+  action :remove
+end
+
+package 'ntp' do
+  action :install
+end
+
+package ['tree', 'unzip', 'wget'] do
+  action :install
+end
+
+package 'git'
+
+service node['ntp']['service'] do
+  action [ :start, :enable ]
+end
+
+node.default['org']['name'] = &quot;School of Devops Inc&quot;
+
+template '/etc/motd' do
+  source 'motd.erb'
+  owner 'root'
+  group 'root'
+  mode  0644
+end
+</code></pre>
+
+<ul>
+<li>Now apply using <code>kitchen converge</code></li>
+</ul>
+<h2 id="templatizing-tomcat-cookbook-lab-exercise">Templatizing Tomcat Cookbook (LAB Exercise)</h2>
+<ul>
+<li>Generate a <code>tomcat.conf.erb</code> template for tomcat cookbook.</li>
+</ul>
+<pre><code class="console">chef generate template cookbooks/tomcat tomcat.conf
+</code></pre>
+
+<ul>
+<li>Generate a <code>default.rb</code> attribute for tomcat cookbook.</li>
+</ul>
+<pre><code class="console">chef generate attribute cookbooks/tomcat default
+</code></pre>
+
+<ul>
+<li>Add the following content to attribute file.</li>
+<li>Path: <em>/workspace/myapp/cookbooks/tomcat/attributes/default.rb</em></li>
+</ul>
+<pre><code class="ruby">default['tomcat']['user'] = 'tomcat'
+default['tomcat']['group'] = 'tomcat'
+default['tomcat']['config'] = '/etc/tomcat/tomcat.conf'
+default['tomcat']['packages'] = [ 'tomcat', 'tomcat-webapps' ]
+default['tomcat']['service'] = 'tomcat'
+default['tomcat']['user'] = 'tomcat'
+default['tomcat']['group'] = 'tomcat'
+default['tomcat']['java_home'] = '/usr/lib/jvm/jre'
+default['tomcat']['catalina_home'] = '/usr/share/tomcat'
+default['tomcat']['java_opts'] = '-Xms32m -Xmx64m -XX:MaxPermSize=64M  \
+-Djava.security.egd=file:/dev/./urandom'
+</code></pre>
+
+<ul>
+<li>Add the below content to <code>tomcat.conf.erb</code> template.</li>
+<li>Path: <em>/workspace/myapp/cookbooks/tomcat/templates</em></li>
+</ul>
+<pre><code class="ruby">TOMCAT_CFG_LOADED=&quot;1&quot;
+
+JAVA_HOME=&quot;&lt;%= node['tomcat']['java_home'] %&gt;&quot;
+JAVA_OPTS=&quot;&lt;%= node['tomcat']['java_opts'] %&gt;&quot;
+
+CATALINA_BASE=&quot;/usr/share/tomcat&quot;
+CATALINA_HOME=&quot;&lt;%= node['tomcat']['catalina_home'] %&gt;&quot;
+JASPER_HOME=&quot;/usr/share/tomcat&quot;
+CATALINA_TMPDIR=&quot;/var/cache/tomcat/temp&quot;
+
+TOMCAT_USER=&quot;&lt;%= node['tomcat']['user'] %&gt;&quot;
+
+SECURITY_MANAGER=&quot;false&quot;
+
+SHUTDOWN_WAIT=&quot;30&quot;
+
+SHUTDOWN_VERBOSE=&quot;false&quot;
+
+CATALINA_PID=&quot;/var/run/tomcat.pid&quot;
+</code></pre>
+
+<ul>
+<li>Now update <code>tomcat::config</code> recipe as mentioned below</li>
+<li>Path: <em>/workspace/myapp/cookbooks/tomcat/recipes/config.rb</em></li>
+</ul>
+<pre><code class="ruby">template node['tomcat']['config'] do
+  source 'tomcat.conf.erb'
+  owner node['tomcat']['user']
+  group node['tomcat']['group']
+  mode '0644'
+  action :create
+  notifies :restart, &quot;service[#{node['tomcat']['service']}]&quot;, :delayed
+end
+</code></pre>
+
+<ul>
+<li>
+<p>Apply using <code>kitchen converge</code></p>
+</li>
+<li>
+<p>Now change the values of <code>JAVA_OPTS</code> in attribute file and then apply again for verifying the changes using template and attribute.</p>
+</li>
+<li>
+<p>Also verify using <code>kitchen login</code> and run <code>ps auwwx</code> command.</p>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../08_customizing_community_cookbooks/" class="btn btn-neutral float-right" title="Customizing Community Cookbooks">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../06_multi_node_cluster_setup/" class="btn btn-neutral" title="Setting up a Multi Node Cluster"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../06_multi_node_cluster_setup/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../08_customizing_community_cookbooks/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

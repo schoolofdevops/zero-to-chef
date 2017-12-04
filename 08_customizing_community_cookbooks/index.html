@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Customizing Community Cookbooks - Zero to Chef</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Customizing Community Cookbooks";
+    var mkdocs_page_input_path = "08_customizing_community_cookbooks.md";
+    var mkdocs_page_url = "/08_customizing_community_cookbooks/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Zero to Chef</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01_introduction/">Introduction to Chef</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../03_resources_and_recipies/">Resources and Recipes</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../04_cookbooks/">Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../05_tdd_with_test_kitchen/">TDD with Test Kitchen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../06_multi_node_cluster_setup/">Setting up a Multi Node Cluster</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../07_data_driven_cookbooks_attr_templates/">Data Driven Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Customizing Community Cookbooks</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#customizing-community-cookbooks">Customizing Community Cookbooks</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#customizing-strategy">Customizing Strategy</a></li>
+        
+            <li><a class="toctree-l3" href="#creating-myhaproxy-cookbook">Creating myhaproxy cookbook</a></li>
+        
+            <li><a class="toctree-l3" href="#resolve-dependency-and-bootstrapping">Resolve Dependency and Bootstrapping</a></li>
+        
+            <li><a class="toctree-l3" href="#verifying-load-balancer">Verifying Load Balancer</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09_deployment/">Deploying Sysfoo App</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10_roles/">Roles</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11_search/">Search</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12_environments/">Environments</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Zero to Chef</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Customizing Community Cookbooks</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="customizing-community-cookbooks">Customizing Community Cookbooks</h1>
+<h2 id="customizing-strategy">Customizing Strategy</h2>
+<ul>
+<li>Fork - Directly use the community cookbook by forking the upstream cookbook.</li>
+<li>Wrapper - Create a wrapper cookbook which calls the community cookbook and customize it, by creating a dependency.</li>
+</ul>
+<h2 id="creating-myhaproxy-cookbook">Creating myhaproxy cookbook</h2>
+<ul>
+<li>Generate a cookbook called <code>myhaproxy</code> inside <code>sysfoo</code>.</li>
+</ul>
+<pre><code class="console">cd /workspace/chapter8/sysfoo/
+chef generate cookbook cookbooks/myhaproxy
+</code></pre>
+
+<ul>
+<li>Add dependency in <code>myhaproxy/metadata.rb</code></li>
+</ul>
+<pre><code class="ruby">depends 'haproxy', '~&gt; 1.6.6'
+</code></pre>
+
+<ul>
+<li>
+<p>Here <code>~&gt; 1.6.6</code> will be calling the community cookbook of haproxy one version level higher to this, i.e, <code>1.6.7</code>.</p>
+</li>
+<li>
+<p>Now add the wrapper content to include and modify <code>haproxy</code> cookbook by adding the following in <code>myhaproxy/recipes/default.rb</code></p>
+</li>
+</ul>
+<pre><code class="ruby">node.default['haproxy']['members'] = [{
+     &quot;hostname&quot; =&gt; &quot;node1&quot;,
+     &quot;ipaddress&quot; =&gt; &quot;node1&quot;,
+     &quot;port&quot; =&gt; 8080,
+     &quot;ssl_port&quot; =&gt; 8080
+   },
+   {
+    &quot;hostname&quot; =&gt; &quot;node2&quot;,
+    &quot;ipaddress&quot; =&gt; &quot;node2&quot;,
+    &quot;port&quot; =&gt; 8080,
+    &quot;ssl_port&quot; =&gt; 8080
+  }]
+
+
+node.default['haproxy']['incoming_port'] = 8080
+
+
+include_recipe 'haproxy::default'
+</code></pre>
+
+<h2 id="resolve-dependency-and-bootstrapping">Resolve Dependency and Bootstrapping</h2>
+<ul>
+<li>Use berkshelf to resolve dependency of <code>myhaproxy</code> cookbook.</li>
+<li>Upload the cookbook to server.</li>
+<li>Now bootstrap <code>node4</code> by naming it as <code>lb</code> and adding the following run_list</li>
+<li>base</li>
+<li>chef-client</li>
+<li>myhaproxy</li>
+</ul>
+<h2 id="verifying-load-balancer">Verifying Load Balancer</h2>
+<ul>
+<li>After bootstrapping visit http://ip:8084 to check the load Balancer.</li>
+<li>It is 8084 because the host port 8080 is mapped to 8084.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../09_deployment/" class="btn btn-neutral float-right" title="Deploying Sysfoo App">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../07_data_driven_cookbooks_attr_templates/" class="btn btn-neutral" title="Data Driven Cookbooks"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../07_data_driven_cookbooks_attr_templates/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../09_deployment/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

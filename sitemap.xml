@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/01_introduction/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/03_resources_and_recipies/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/04_cookbooks/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/05_tdd_with_test_kitchen/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/06_multi_node_cluster_setup/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/07_data_driven_cookbooks_attr_templates/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/08_customizing_community_cookbooks/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/09_deployment/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/10_roles/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/11_search/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/12_environments/</loc>
+     <lastmod>2017-12-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+</urlset>

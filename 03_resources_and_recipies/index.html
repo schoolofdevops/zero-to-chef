@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Resources and Recipes - Zero to Chef</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Resources and Recipes";
+    var mkdocs_page_input_path = "03_resources_and_recipies.md";
+    var mkdocs_page_url = "/03_resources_and_recipies/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Zero to Chef</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01_introduction/">Introduction to Chef</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Resources and Recipes</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#resources-and-recipes">Resources and Recipes</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#resources">Resources</a></li>
+        
+            <li><a class="toctree-l3" href="#recipes">Recipes</a></li>
+        
+            <li><a class="toctree-l3" href="#lab-exercises">LAB Exercises</a></li>
+        
+            <li><a class="toctree-l3" href="#common-functionality">Common Functionality</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../04_cookbooks/">Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../05_tdd_with_test_kitchen/">TDD with Test Kitchen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../06_multi_node_cluster_setup/">Setting up a Multi Node Cluster</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../07_data_driven_cookbooks_attr_templates/">Data Driven Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../08_customizing_community_cookbooks/">Customizing Community Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09_deployment/">Deploying Sysfoo App</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10_roles/">Roles</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11_search/">Search</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12_environments/">Environments</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Zero to Chef</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Resources and Recipes</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="resources-and-recipes">Resources and Recipes</h1>
+<h2 id="resources">Resources</h2>
+<p>A resource is a statement of configuration policy that describes the desired state of a node.</p>
+<ul>
+<li>Block of code, declares the desired state of a node.</li>
+<li>Resource type—such as package, template, or service.</li>
+</ul>
+<p>Where a resource represents a piece of the system and the steps that are needed to bring that piece of the system from its current state into the desired state.</p>
+<h2 id="recipes">Recipes</h2>
+<ul>
+<li>Collection of resources in a single file is called recipes.</li>
+<li>Recipes must be stored in a cookbook.</li>
+<li>One recipe may be included in another recipe.</li>
+<li>May use the results of a search query and read the contents of a data bag (including an encrypted data bag)</li>
+<li>Recipe must be added to a run-list before it can be used by the chef-client</li>
+<li>Is always executed in the same order as listed in a run-list</li>
+</ul>
+<h3 id="writing-our-first-recipe">Writing our First recipe</h3>
+<p>Lets start creating a recipe file named as <code>base.rb</code>, with the following resource specification
+  - Creating <code>user</code> - deploy
+  - Removing <code>user</code> - dojo
+  - Installing <code>packages</code> - tree, git, ntp, wget, unzip
+  - Add content to motd <code>file</code>
+  - Start <code>ntp</code> service</p>
+<p>Before Writing a recipe lets have a look of available resources <a href="https://docs.chef.io/resource.html">here</a>[^chef_resources] to build of recipe.</p>
+<ul>
+<li>Our recipe start with creating a <code>user</code> resources, for creating a user called <code>deploy</code></li>
+</ul>
+<pre><code class="ruby">user 'deploy' do
+  action :create
+end
+</code></pre>
+
+<ul>
+<li>The above resource will create only user <code>deploy</code> to add more information to user resources, <a href="https://docs.chef.io/resource_user.html">click here</a>[^user_resources]</li>
+<li>Let us create password for our user <code>deploy</code>, which need to be encrypted.</li>
+<li>In terminal use this command and enter paswword twice to create a encrypted password <code>openssl passwd -l</code></li>
+</ul>
+<pre><code class="ruby">user 'deploy' do
+  uid 5001
+  home '/home/deploy'
+  action :create
+  password '$1$Ze1eJK3R$j5I0NRP5WxbZAaeXcfYW7/'
+end
+</code></pre>
+
+<h3 id="syntax-check">Syntax Check</h3>
+<ul>
+<li>To check the syntax of ruby file we use <code>ruby -c &lt;file_name.rb&gt;</code> where <strong>-c</strong> is used to "check syntax only".</li>
+</ul>
+<pre><code class="console">ruby -c base.rb
+</code></pre>
+
+<h3 id="execute-recipe-with-chef-client-in-local-mode">Execute Recipe with Chef Client in Local Mode</h3>
+<ul>
+<li>We will be using <em>Chef-client</em> command with <code>--local-mode</code> or <code>-z</code> to run in localhost(chef workstation).</li>
+</ul>
+<pre><code class="console">chef-client --local-mode --log_level info &lt;file_name.rb&gt;
+or
+chef-client -z -l &lt;file_name.rb&gt;
+</code></pre>
+
+<ul>
+<li>In the above we use <code>--log_level info</code> info or <code>-l</code> to get the detailed information on <code>chef-client</code> run.</li>
+</ul>
+<h3 id="using-why-dry-run">Using Why (Dry) Run</h3>
+<ul>
+<li>Before applying recipe directly we will be using dry run mode to check what this recipe <strong>would</strong> do</li>
+<li>To use dry run and check what this recipe will do, we could use <code>--why-run</code> or <code>-w</code> with <strong>chef-client</strong> command.</li>
+</ul>
+<pre><code class="console">chef-client --local-mode --log_level info --why-run &lt;file_name.rb&gt;
+or
+chef-client -z -l -w &lt;file_name.rb&gt;
+</code></pre>
+
+<ul>
+<li>By running <code>chef-client -z -l -w base.rb</code> tells that <code>user deploy</code> <strong>would</strong> be created, and not really created, because of why run mode.</li>
+</ul>
+<h3 id="running-our-first-recipe">Running our first recipe</h3>
+<ul>
+<li>After checking with dry run, we can apply our recipe to the local node.</li>
+</ul>
+<pre><code class="console">chef-client --local-mode --log_level info base.rb
+or
+chef-apply base.rb
+</code></pre>
+
+<p><strong>What it does?</strong></p>
+<ul>
+<li>It creates user <code>deploy</code> with specified UID and home directory in local machine.</li>
+<li>Run <code>id deploy</code> to check the details of user deploy.</li>
+</ul>
+<h3 id="idempotence">Idempotence</h3>
+<p>Lets run chef-client again to reapply with same options</p>
+<pre><code class="console">chef-client -z -l base.rb
+</code></pre>
+
+<p>What happened when we run again the chef-client command?</p>
+<ul>
+<li>It checks for the presence of user <code>deploy</code> and hence it <strong>Skipped</strong> executing <code>user</code> resources.</li>
+<li>This is how, <strong>idempotent</strong> of <strong>chef</strong> works.</li>
+</ul>
+<h2 id="lab-exercises">LAB Exercises</h2>
+<p>We created <code>user deploy</code> now let us add the remaining resources to our <code>base.rb</code> recipe.
+  - Removing <code>user</code> - dojo
+  - Installing <code>packages</code> - tree, git, ntp, wget, unzip
+  - Add content to motd <code>file</code>
+  - Start <code>ntp</code> service</p>
+<h2 id="common-functionality">Common Functionality</h2>
+<p>Resources can have some common functionality like sharing properties, conditionals and relative actions.</p>
+<h3 id="actions">Actions</h3>
+<p><strong>action :nothing</strong></p>
+<p>The above common functionality can be used with any resource block to do nothing until notified by another resource to take action.</p>
+<h3 id="notifications">Notifications</h3>
+<p>This property is used to listens to other resources in the resource collection and then takes actions based on the notification type (<code>notifies</code> or <code>subscribes</code>).</p>
+<p>The syntax for notifies is:</p>
+<pre><code class="ruby">notifies :action, 'resource[name]', :timer
+</code></pre>
+
+<h3 id="timers">Timers</h3>
+<p>A timer specifies the point during the chef-client run at which a notification is run.</p>
+<pre><code class="ruby">:before
+</code></pre>
+
+<p>Specifies that the action on a notified resource should be run before processing the resource block in which the notification is located.</p>
+<pre><code class="ruby">:delayed
+</code></pre>
+
+<p>Default. Specifies that a notification should be queued up, and then executed at the very end of the chef-client run.</p>
+<pre><code class="ruby">:immediate, :immediately
+</code></pre>
+
+<p>Specifies that a notification should be run immediately, per resource notified.</p>
+<h3 id="resource-with-guards">Resource with Guards</h3>
+<ul>
+<li>To prevent the execute command from running again and again and providing idempotent to it, we use <code>gaurds</code> one of the common functionality along with the resource.</li>
+</ul>
+<p><strong>Gaurds</strong></p>
+<p>The following properties can be used to define a guard that is evaluated during the execution phase of the chef-client run:</p>
+<ul>
+<li>
+<p>not_if - Prevent a resource from executing when the condition returns true.</p>
+</li>
+<li>
+<p>only_if - Allow a resource to execute only if the condition returns true.</p>
+</li>
+</ul>
+<p><a href="https://gist.github.com/initcron/eff10a8e5bde59b356a485539579d634">Click here</a>[^deploy_facebooc] for <em>deploy_facebooc.rb</em> recipe for common functionality, as shown below</p>
+<pre><code class="ruby">package ['libsqlite3-dev', 'sqlite3']
+
+execute 'download_facebooc_from_source' do
+  command 'wget https://github.com/jserv/facebooc/archive/master.zip'
+  cwd '/opt'
+  user 'root'
+  creates '/opt/master.zip'
+  notifies :run, 'execute[extract_facebook_app]', :immediately
+end
+
+
+execute 'extract_facebook_app' do
+  command 'unzip master.zip  &amp;&amp; touch /opt/.facebooc_compile'
+  cwd '/opt'
+  user 'root'
+  action :nothing
+end
+
+
+execute 'compile_facebooc' do
+  command 'make all &amp;&amp; rm /opt/.facebooc_compile'
+  cwd '/opt/facebooc-master'
+  user 'root'
+  only_if 'test -f /opt/.facebooc_compile'
+  action :run
+end
+
+
+execute 'run_facebooc' do
+  command 'bin/facebooc 16000 &amp;'
+  cwd '/opt/facebooc-master'
+  user 'root'
+  not_if 'netstat -an | grep 16000 | grep -i listen'
+  action :run
+end
+</code></pre>
+
+<p>[^chef_resources]: Chef Resources - https://docs.chef.io/resource.html
+[^user_resources]: User Resources - https://docs.chef.io/resource_user.html
+[^deploy_facebooc]: Deploy_Facebooc Recipie - https://gist.github.com/initcron/eff10a8e5bde59b356a485539579d634</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../04_cookbooks/" class="btn btn-neutral float-right" title="Cookbooks">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../01_introduction/" class="btn btn-neutral" title="Introduction to Chef"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../01_introduction/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../04_cookbooks/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

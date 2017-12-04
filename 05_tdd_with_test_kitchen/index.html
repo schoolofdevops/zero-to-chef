@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>TDD with Test Kitchen - Zero to Chef</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "TDD with Test Kitchen";
+    var mkdocs_page_input_path = "05_tdd_with_test_kitchen.md";
+    var mkdocs_page_url = "/05_tdd_with_test_kitchen/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Zero to Chef</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01_introduction/">Introduction to Chef</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../03_resources_and_recipies/">Resources and Recipes</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../04_cookbooks/">Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">TDD with Test Kitchen</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#tdd-with-test-kitchen">TDD with Test Kitchen</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#app-test-vs-cookbook-test">App test vs Cookbook Test</a></li>
+        
+            <li><a class="toctree-l3" href="#inspec-vs-serverspec">Inspec vs Serverspec</a></li>
+        
+            <li><a class="toctree-l3" href="#creating-test-file">Creating test file</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../06_multi_node_cluster_setup/">Setting up a Multi Node Cluster</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../07_data_driven_cookbooks_attr_templates/">Data Driven Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../08_customizing_community_cookbooks/">Customizing Community Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09_deployment/">Deploying Sysfoo App</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10_roles/">Roles</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11_search/">Search</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12_environments/">Environments</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Zero to Chef</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>TDD with Test Kitchen</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="tdd-with-test-kitchen">TDD with Test Kitchen</h1>
+<h2 id="app-test-vs-cookbook-test">App test vs Cookbook Test</h2>
+<p><img alt="App test vs Cookbook Test" src="../images/pictures/05_1.png" /></p>
+<ul>
+<li>Test configuration can be defined in two different places.</li>
+<li>One is inside app directory <code>myapp/test/recipes/default_test.rb</code></li>
+<li>Another one is inside the cookbooks directory <code>myapp/cookbooks/mycookbook/test/recipes/default_test.rb</code></li>
+</ul>
+<h2 id="inspec-vs-serverspec">Inspec vs Serverspec</h2>
+<ul>
+<li>Inspec <a href="https://www.inspec.io/docs/reference/resources/">resources</a></li>
+<li>Serverspec <a href="http://serverspec.org/resource_types.html">resources</a></li>
+</ul>
+<h2 id="creating-test-file">Creating test file</h2>
+<h3 id="user-resource">User Resource</h3>
+<ul>
+<li>Add <strong>inspec user resource</strong> to check for <code>tomcat user</code></li>
+</ul>
+<pre><code class="ruby">unless os.windows?
+  describe user('tomcat') do
+    it { should exist }
+  end
+end
+</code></pre>
+
+<h3 id="port-resource">Port Resource</h3>
+<ul>
+<li>Add <strong>inspec port resource</strong> to verify listening of port <code>8080</code></li>
+<li>Include protocols for <code>tcp6</code></li>
+</ul>
+<pre><code class="ruby">describe port(8080) do
+  it { should be_listening }
+  its('protocols') { should include 'tcp6' }
+end
+</code></pre>
+
+<h3 id="service-resource">Service Resource</h3>
+<ul>
+<li>Add <strong>inspec service resource</strong> to verify <code>tomcat service</code></li>
+<li>Include <code>installed</code>, <code>enabled</code> and <code>running</code> conditions</li>
+</ul>
+<pre><code class="ruby">describe service('tomcat') do
+  it { should be_installed }
+  it { should be_enabled }
+  it { should be_running }
+end
+</code></pre>
+
+<p>Complete file of <code>/workspace/myapp/test/recipes/default_test.rb</code> is as follows</p>
+<pre><code class="ruby">unless os.windows?
+  describe user('tomcat') do
+    it { should exist }
+  end
+end
+
+describe port(8080) do
+  it { should be_listening }
+  its('protocols') { should include 'tcp6' }
+end
+
+describe service('tomcat') do
+  it { should be_installed }
+  it { should be_enabled }
+  it { should be_running }
+end
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../06_multi_node_cluster_setup/" class="btn btn-neutral float-right" title="Setting up a Multi Node Cluster">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../04_cookbooks/" class="btn btn-neutral" title="Cookbooks"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../04_cookbooks/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../06_multi_node_cluster_setup/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Setting up a Multi Node Cluster - Zero to Chef</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Setting up a Multi Node Cluster";
+    var mkdocs_page_input_path = "06_multi_node_cluster_setup.md";
+    var mkdocs_page_url = "/06_multi_node_cluster_setup/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Zero to Chef</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01_introduction/">Introduction to Chef</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../03_resources_and_recipies/">Resources and Recipes</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../04_cookbooks/">Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../05_tdd_with_test_kitchen/">TDD with Test Kitchen</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Setting up a Multi Node Cluster</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#multi-node-cluster">Multi Node Cluster</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#hosted-chef-server">Hosted Chef Server</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../07_data_driven_cookbooks_attr_templates/">Data Driven Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../08_customizing_community_cookbooks/">Customizing Community Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09_deployment/">Deploying Sysfoo App</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10_roles/">Roles</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11_search/">Search</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12_environments/">Environments</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Zero to Chef</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Setting up a Multi Node Cluster</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="multi-node-cluster">Multi Node Cluster</h1>
+<p>In this session  we going to simulate a realistic environment with multiple nodes being managed with Chef Server, similar to most of the real world implementations.</p>
+<p>This would include 3 components,</p>
+<ul>
+<li>Chef Workstation (Could be your personal PC/Laptop)  </li>
+<li>Chef Server (Hosted or On-Premises )  </li>
+<li>Chef Clients ('n' number of machines; could be VM, AWS EC2, etc..)  </li>
+</ul>
+<p><img alt="Multi-Node" src="../images/pictures/M2_1.png" /></p>
+<h2 id="hosted-chef-server">Hosted Chef Server</h2>
+<h3 id="creating-an-account">Creating an Account</h3>
+<ul>
+<li>Now let us create a account in <a href="https://manage.chef.io/login">chef.io</a> to manage our own hosted chef server.  </li>
+<li>Once account is created, verify and login.  </li>
+<li>Now create a organization of your own and then download chef-starter kit.  </li>
+</ul>
+<h3 id="setting-up-workstation">Setting Up Workstation</h3>
+<ul>
+<li>Upload  starter kit to the workspace. Its the <strong>chef-starter.zip</strong> file that you downloaded from chef server.  </li>
+<li>Upload the file to workspace and extract it. You should see <code>chef-repo</code> directory created after being extracted.  </li>
+<li>Change into chef-repo directory created as the outcome of above command and validate workstation by running  </li>
+</ul>
+<pre><code>knife client list
+</code></pre>
+
+<p>The above command will return the <strong>orgname-validator</strong> client. If it does,you have successufully validated all of following,  </p>
+<ul>
+<li>Workstation software (knife) is installed  </li>
+<li>You have required configurations, authentication keys/credentials to talk to Chef Server  </li>
+<li>Chef Server is setup and ready</li>
+<li>Workstation is able to communicate with Chef Server. There are no network issues etc.  </li>
+<li>Workstaiton is able to authenticate with Chef Server  </li>
+<li>Workstation has made the API request and displays  the results returned by Chef Server  </li>
+</ul>
+<p><img alt="Tree" src="../images/pictures/07_1.png" /></p>
+<h3 id="moving-knife-configs-to-workspace">Moving knife configs to workspace</h3>
+<ul>
+<li>Copy <code>.chef</code> directory from <strong>chef-repo</strong> to <strong>workspace</strong>.</li>
+</ul>
+<pre><code class="console">cd /workspace
+mv chef-repo/.chef .
+ls -al
+</code></pre>
+
+<p>Edit /workspace/.chef/knife.rb<br />
+and update cookbook_path from</p>
+<pre><code>cookbook_path  [&quot;#{current_dir}/../cookbooks&quot;]
+
+</code></pre>
+
+<p>to</p>
+<pre><code>cookbook_path       [&quot;cookbooks&quot;]
+
+</code></pre>
+
+<p>Change into chapter6/sysfoo and validate</p>
+<pre><code>cd /workspace/chapter6/sysfoo
+
+knife client list
+</code></pre>
+
+<p>From here on all  <code>knife</code> commands work from any subdirectory of /workspace.</p>
+<h3 id="bootstrapping-a-managed-node">Bootstrapping a Managed Node</h3>
+<ul>
+<li>Now run <code>knife client list</code> to get the list of client associated with the hosted chef-server.</li>
+<li>In our case we don't have any client as of now, so lets start adding nodes by using <code>knife bootstrap</code> command.</li>
+<li>From Workstation we need to bootstrap client.</li>
+<li>In codespaces environment we have pre-built nodes associated with the following IP.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Node</th>
+<th align="center">Name</th>
+<th align="center">IP</th>
+<th align="center">Port Mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">node1</td>
+<td align="center">app1</td>
+<td align="center">177.0.101.10</td>
+<td align="center">8081:8080</td>
+</tr>
+<tr>
+<td align="center">node2</td>
+<td align="center">app2</td>
+<td align="center">177.0.101.11</td>
+<td align="center">8082:8080</td>
+</tr>
+<tr>
+<td align="center">node3</td>
+<td align="center">app3</td>
+<td align="center">177.0.101.12</td>
+<td align="center">8083:8080</td>
+</tr>
+<tr>
+<td align="center">node4</td>
+<td align="center">lb</td>
+<td align="center">177.0.101.13</td>
+<td align="center">8084:8080</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>All nodes are accessible using ssh without password.</p>
+</li>
+<li>
+<p>Lets bootstrap node1 using the following command</p>
+</li>
+</ul>
+<pre><code class="console">knife bootstrap node1 --ssh-user devops --sudo -N app1
+</code></pre>
+
+<ul>
+<li>Here <code>-N</code> is used to define the name of the node that we bootstrap.</li>
+<li><code>--ssh-user</code> is used to provide the name of the user in that particular node.</li>
+<li>Also using <code>--sudo</code> to connect is to provide root previlages for running all the command.</li>
+<li>
+<p><code>app1</code> is bootstrapped successfully.</p>
+</li>
+<li>
+<p>Now check for the available nodes</p>
+</li>
+</ul>
+<pre><code class="console">knife node list
+</code></pre>
+
+<ul>
+<li>Check for the existing status and specified runlist for node1(app1)</li>
+</ul>
+<pre><code class="console">knife node show app1
+</code></pre>
+
+<h3 id="providing-configurations-to-the-node">Providing configurations to the Node</h3>
+<p>Change into chef-sysfoo directory on workstation.</p>
+<p>Upload initial cookbooks</p>
+<pre><code>knife cookbook upload java tomcat
+
+</code></pre>
+
+<h4 id="defining-run-list-for-the-node">Defining Run List for the Node</h4>
+<pre><code>knife node show app1
+knife node run_list add app1 &quot;recipe[tomcat]&quot;
+</code></pre>
+
+<p>To apply, login to node1 and run chef-client</p>
+<pre><code>ssh devops@node1
+sudo chef-client
+</code></pre>
+
+<h3 id="managing-chef-client-as-a-service">Managing Chef Client as a Service</h3>
+<p>Lets now start managing chef-client and its configurations through chef cookbooks.  We have a special purpose cookbook by name <strong>chef-client</strong> which allows us to do so.  It will,
+  * decide how to run chef-client, eg. cronjob, service etc.
+  * does support   various types of service managers e.g. runit, bluepill, supervisord etc.
+  * manages configurations for chef client .eg. how frequently chef-client runs</p>
+<p>Lets upload chef-client cookbook which is already present if you are using the code repository provides.</p>
+<pre><code>knife cookbook upload chef-client
+
+</code></pre>
+
+<p>Did chef-client cookbook get uploaded successfully?   If not, observe the error and try to deduct the root cause.</p>
+<h3 id="berkshelf">Berkshelf</h3>
+<p>Berkshelf is a dependency manager for Chef cookbooks. With it, you can easily depend on community cookbooks and have them safely included in your workflow. You can also ensure that your CI systems reproducibly select the same cookbook versions, and can upload and bundle cookbook dependencies without needing a locally maintained copy. Berkshelf is included in the Chef Development Kit.</p>
+<ul>
+<li>Now look into the downloaded <code>chef-client</code> cookbook.</li>
+<li>It has <code>berksfile</code> where the dependent cookbook are mentioned.</li>
+<li>To run <code>berks</code> command we need to be in the directory where berksfile is located, that is <code>workspace/sysfoo/cookbooks/chef-client</code></li>
+<li>Now run install and upload command.</li>
+</ul>
+<pre><code class="console">cd cookbooks/chef-client
+
+berks install; berks upload
+
+cd ../..
+
+</code></pre>
+
+<p>Lets now add <strong>chef-client</strong> recipe to the runlist of node1.</p>
+<pre><code class="console">knife node run_list add app1 &quot;recipe[chef-client]&quot;
+</code></pre>
+
+<h4 id="providing-run-list-at-the-bootstrap-time">Providing Run List at the Bootstrap time</h4>
+<pre><code class="console">knife bootstrap node2 -x devops --sudo -N app2 -r &quot;recipe[tomcat],recipe[chef-client]&quot;
+</code></pre>
+
+<ul>
+<li><code>--run-list</code> is used to specify run-list and by applying recipes to the node at the time of bootstrap.</li>
+<li>Now verify by visiting host ip with port mapping of 8080 to 8081 for node1 http://ip:8081 and port mapping of 8080 to 8082 for node2 http://ip:8082, where the tomcat application is installed and service is up and running.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../07_data_driven_cookbooks_attr_templates/" class="btn btn-neutral float-right" title="Data Driven Cookbooks">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../05_tdd_with_test_kitchen/" class="btn btn-neutral" title="TDD with Test Kitchen"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../05_tdd_with_test_kitchen/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../07_data_driven_cookbooks_attr_templates/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

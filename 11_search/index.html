@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Search - Zero to Chef</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Search";
+    var mkdocs_page_input_path = "11_search.md";
+    var mkdocs_page_url = "/11_search/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Zero to Chef</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01_introduction/">Introduction to Chef</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../03_resources_and_recipies/">Resources and Recipes</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../04_cookbooks/">Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../05_tdd_with_test_kitchen/">TDD with Test Kitchen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../06_multi_node_cluster_setup/">Setting up a Multi Node Cluster</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../07_data_driven_cookbooks_attr_templates/">Data Driven Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../08_customizing_community_cookbooks/">Customizing Community Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09_deployment/">Deploying Sysfoo App</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10_roles/">Roles</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Search</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#search">Search</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#replacing-myhaproxy-recipe">Replacing myhaproxy recipe</a></li>
+        
+            <li><a class="toctree-l3" href="#verifying-search-functionality">Verifying Search Functionality</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12_environments/">Environments</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Zero to Chef</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Search</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="search">Search</h1>
+<ul>
+<li>Search is used to run a query on chef-server.</li>
+<li>To search for nodes, roles, environment and data bags.</li>
+<li>Search patterns include exact, wildcards and range.</li>
+<li>Search can be included within recipe or using knife CLI.</li>
+</ul>
+<h2 id="replacing-myhaproxy-recipe">Replacing myhaproxy recipe</h2>
+<ul>
+<li>Instead of adding the additional web servers manually to the list of haproxy, we can use search inside recipe to perform that.</li>
+<li>Now we can change the default recipe as follows</li>
+<li>Path: <em>myapp/cookbooks/myhaproxy/recipes/default.rb</em></li>
+</ul>
+<pre><code class="ruby">all_web_nodes = search(&quot;node&quot;, &quot;role:app&quot;)
+
+members = [ ]
+
+all_web_nodes.each do | web_node |
+
+     member = {
+        'hostname' =&gt; web_node['hostname'],
+        'ipaddress' =&gt; web_node['ipaddress'],
+        'port' =&gt; 8080,
+        'ssl_port' =&gt; 8080
+    }
+
+  members.push(member)
+end
+
+node.default['haproxy']['members'] = members
+
+node.default['haproxy']['incoming_port'] = 8080
+
+include_recipe 'haproxy::default'
+</code></pre>
+
+<ul>
+<li>Now before uploading this to chef server we will change the version of cookbook by adding the version in metadata.</li>
+<li>Change the version in <code>myapp/cookbooks/myhaproxy/metadata.rb</code> from <strong>0.1.0</strong> to <strong>0.2.0</strong>.</li>
+<li>Upload the myhaproxy cookbook.</li>
+</ul>
+<h2 id="verifying-search-functionality">Verifying Search Functionality</h2>
+<ul>
+<li>Now bootstrap node3 as web server using the role app.</li>
+<li>Before bootstrap watch the haproxy.cfg file in <code>node4(Load Balancer)</code>, which will be getting updated for every 60 seconds defined by chef-client process.</li>
+</ul>
+<pre><code class="console">watch -n 1 tail /etc/haproxy/haproxy.cfg
+</code></pre>
+
+<ul>
+<li>Now bootstrap node3 from workstation,</li>
+</ul>
+<pre><code class="console">knife bootstrap node3 -x devops --sudo -N &quot;app3&quot; -r &quot;role[app]&quot;
+</code></pre>
+
+<ul>
+<li>After a minute we can see the entry of new web-server <code>node3</code> added to the load balancer configuration file.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../12_environments/" class="btn btn-neutral float-right" title="Environments">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../10_roles/" class="btn btn-neutral" title="Roles"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../10_roles/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../12_environments/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

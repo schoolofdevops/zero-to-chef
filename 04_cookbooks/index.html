@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Cookbooks - Zero to Chef</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Cookbooks";
+    var mkdocs_page_input_path = "04_cookbooks.md";
+    var mkdocs_page_url = "/04_cookbooks/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Zero to Chef</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01_introduction/">Introduction to Chef</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../03_resources_and_recipies/">Resources and Recipes</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Cookbooks</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#cookbook-and-run_list">Cookbook and Run_list</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#what-is-cookbook">What is Cookbook?</a></li>
+        
+            <li><a class="toctree-l3" href="#chef-generate">Chef Generate</a></li>
+        
+            <li><a class="toctree-l3" href="#generating-app-and-cookbooks-to-setup-webapp">Generating App and Cookbooks to setup Webapp</a></li>
+        
+            <li><a class="toctree-l3" href="#lab-exercise-tomcat-cookbook">LAB Exercise - Tomcat Cookbook</a></li>
+        
+            <li><a class="toctree-l3" href="#creating-local-environment-to-test-the-code">Creating Local Environment to Test the Code</a></li>
+        
+            <li><a class="toctree-l3" href="#simplifying-run_list">Simplifying Run_list</a></li>
+        
+            <li><a class="toctree-l3" href="#managing-files">Managing Files</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../05_tdd_with_test_kitchen/">TDD with Test Kitchen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../06_multi_node_cluster_setup/">Setting up a Multi Node Cluster</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../07_data_driven_cookbooks_attr_templates/">Data Driven Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../08_customizing_community_cookbooks/">Customizing Community Cookbooks</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09_deployment/">Deploying Sysfoo App</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10_roles/">Roles</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11_search/">Search</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12_environments/">Environments</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Zero to Chef</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Cookbooks</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="cookbook-and-run_list">Cookbook and Run_list</h1>
+<p>In the previous chapter we gone through resources and recipes, now let us go through Cookbook and Run_list in this chapter.</p>
+<h2 id="what-is-cookbook">What is Cookbook?</h2>
+<ul>
+<li>Cookbook contains configuration and policy which are created using Ruby as its reference language.</li>
+<li>Cookbook is created with desired scenario in mind and contains required components to support the final scenario of a system.</li>
+<li>Cookbook contains collection of various components as follows,</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Components</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">Recipes</td>
+<td align="left">\pbox{12cm}{Collection of resources in a single file is called recipes. Recipes are stored in a cookbook. Recipe must be added to a run-list before it can be used by the chef-client. Is always executed in the same order as listed in a run-list.}</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">Attributes</td>
+<td align="left">\pbox{12cm}{Attributes are used to override the default settings of the node.For each cookbook, attributes in the <code>default.rb</code> file are loaded first, and then additional attribute files (if present) are loaded in lexical sort order.}</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">Files</td>
+<td align="left">\pbox{12cm}{Distributing any type of files to nodes, these are static files}</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">Templates</td>
+<td align="left">\pbox{12cm}{A template is a file written in markup language that uses Ruby statements to solve complex configuration scenarios, and to update dynamic values.}</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">Cookbook Versions</td>
+<td align="left">\pbox{12cm}{A cookbook version is used to maintain a various version of same file with different functionality. A version may exist for many reasons, such as ensuring the correct use of a third-party component, updating a bug fix, or adding an improvement.}</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="community-cookbooks">Community Cookbooks</h3>
+<p><strong>Chef Maintained Cookbooks</strong></p>
+<p>Chef maintains a collection of cookbooks that are widely used by the community.</p>
+<p><strong>Community Cookbooks</strong></p>
+<p>The community has authored thousands of cookbooks, ranging from niche cookbooks that are used by only a few organizations to cookbooks that are some of the most popular and are used by nearly everyone.</p>
+<h2 id="chef-generate">Chef Generate</h2>
+<ul>
+<li><code>chef generate</code> is a part of chef-dk and this command is used to generate a set of file system. Which can be used as a template.</li>
+<li>To know more about <em>chef generate</em> you can check with the man page,</li>
+</ul>
+<pre><code class="console">chef generate
+Usage: chef generate GENERATOR [options]
+
+Available generators:
+app             Generate an application repo
+cookbook        Generate a single cookbook
+recipe          Generate a new recipe
+attribute       Generate an attributes file
+template        Generate a file template
+file            Generate a cookbook file
+lwrp            Generate a lightweight resource/provider
+repo            Generate a Chef code repository
+policyfile      Generate a Policyfile for use with the install/push commands
+generator       Copy ChefDK's generator cookbook so you can customize
+build-cookbook  Generate a build cookbook for use with Delivery
+</code></pre>
+
+<h3 id="chef-generate-app-vs-cookbook">Chef Generate -  App vs Cookbook</h3>
+<p>There are two methods to create code. Traditional approach has been to generate one repository per cookbook. The new approach is to generate one repository per Application, with cookbooks for each component e.g. a repo for web-app with cookbooks for tomcat, java, mysql, deployment.  </p>
+<p>This method also uses a common test kitchen environment etc.</p>
+<p>To find more information on comparison between App and Cookbook approach, refer to <a href="http://devopsguru.tumblr.com/post/147717124737/chef-generate-app-vs-chef-generate-cookbook-vs">this blog</a>[^devopsguru_blog].</p>
+<p>Example of generating a app is</p>
+<pre><code class="console">chef generate app &lt;app_repo_name&gt;
+</code></pre>
+
+<p>Example of generating a single cookbook  is</p>
+<pre><code class="console">chef generate cookbook &lt;cookbook_name&gt;
+</code></pre>
+
+<h2 id="generating-app-and-cookbooks-to-setup-webapp">Generating App and Cookbooks to setup Webapp</h2>
+<p>Let us generate a repo for our application named "myapp".</p>
+<ul>
+<li>Starts with creating a <code>sysfoo</code> repo for our application.</li>
+</ul>
+<pre><code class="console">chef generate app sysfoo
+</code></pre>
+
+<ul>
+<li>Let us create a first cookbook for our tomcat application.</li>
+<li>Inside app repo create a cookbooks for <code>tomcat</code> along with its prerequisite cookbook <code>java</code></li>
+</ul>
+<pre><code class="console">cd sysfoo
+
+chef generate cookbook cookbooks/java
+
+chef generate cookbook cookbooks/tomcat
+</code></pre>
+
+<ul>
+<li>App repo and cookbooks are created.</li>
+</ul>
+<h3 id="java-cookbook">Java Cookbook</h3>
+<p>Repo for java cookbook is generated now add resources to our cookbook.</p>
+<ul>
+<li>create a recipe to install <code>epel-release</code> and <code>java-1.7.0-openjdk</code>.</li>
+<li>In <code>myapp/cookbooks/java/recipes/default.rb</code> create a default recipe with the following content.</li>
+</ul>
+<pre><code class="ruby">package 'epel-release' do
+  action :install
+end
+
+package 'java-1.7.0-openjdk' do
+  action :install
+end
+</code></pre>
+
+<h2 id="lab-exercise-tomcat-cookbook">LAB Exercise - Tomcat Cookbook</h2>
+<ul>
+<li>Cookbook for <code>tomcat</code> is already been generated .</li>
+<li>Add one recipe <code>install.rb</code> to <strong>install</strong> <code>tomcat</code> and <code>tomcat-webapps</code>.</li>
+<li>Add another recipe <code>service.rb</code> to <strong>start</strong> a <code>tomcat service</code>.</li>
+</ul>
+<h2 id="creating-local-environment-to-test-the-code">Creating Local Environment to Test the Code</h2>
+<p>We have created cookbooks for Java and Tomcat and written reipes to install and configure tomcat. Before we uploade this code to the Chef Server and apply it at scale, its important that we test these recipes locally. Every subsequent change to the recipes need to be tested as well.</p>
+<p>We may also need to test our code on multiple different platforms. Test kitchen offers us a way to create local test environments, apply the code and also execute automated tests to validate that our code works.</p>
+<p>It could be used for
+<em> Local development to create portable, use and throw test environments.
+</em> Functional and Integration tests which could be triggered automatically as part of Continuous Integration environments.</p>
+<h3 id="creating-test-kitchen-configuration">Creating Test Kitchen Configuration</h3>
+<p>Test Kitchen comes with a configuration file .kitchen.yml . We have one file for each App and cookbooks. We would edit our top level .kitchen.yml file  available at sysfoo/.kitchen.yml</p>
+<p>Make sure it matches the following config</p>
+<pre><code class="ruby">---
+driver:
+  name: docker
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-6.8
+    driver_config:
+      image: codespaces/chef-node-centos-6
+      forward:
+        - 8080:8080
+
+suites:
+  - name: default
+    run_list:
+      - recipe[sysfoo::default]
+    verifier:
+      inspec_tests:
+        - test/recipes
+    attributes:
+
+</code></pre>
+
+<p>Once created, check the current status of the environment by running ,</p>
+<pre><code class="console">cd /workspace/sysfoo/
+kitchen list
+</code></pre>
+
+<p>TIP: Use yamllint.com to validate .kitchen.yaml if you get an error after running <code>kitchen list</code></p>
+<h3 id="create-a-local-environment-with-docker">Create a Local Environment with Docker</h3>
+<p>Local environment for testing is created using docker, we will be uing ".kitchen.yml" for creating a test environment.</p>
+<ul>
+<li>Once the <strong>.kitchen.yml</strong> is updated we can create kitchen using <code>kitchen create</code> command, from the directory where <em>.kitchen.yml</em> file exists.</li>
+</ul>
+<pre><code class="console">kitchen create
+</code></pre>
+
+<ul>
+<li>It creates a docker container with <code>centos-6.8</code>.</li>
+</ul>
+<pre><code class="console">kitchen list
+</code></pre>
+
+<ul>
+<li>To list the available instances and their information.</li>
+</ul>
+<h3 id="adding-recipe-to-run_list">Adding recipe to run_list</h3>
+<p>Once the test environment created we need to add recipes to the run_list for testing it.</p>
+<ul>
+<li>Add both java and tomcat recipes to run_list in <code>.kitchen.yml</code>.</li>
+<li>java::install</li>
+<li>tomcat::install</li>
+<li>tomcat::service</li>
+</ul>
+<pre><code class="ruby">suites:
+  - name: default
+    run_list:
+      - recipe[java::install]
+      - recipe[tomcat::install]
+      - recipe[tomcat::service]
+</code></pre>
+
+<h3 id="apply-chef-cookbooks">Apply Chef Cookbooks</h3>
+<ul>
+<li>Once the instance is created it can be converged along with the <code>run_list</code> specified in <code>.kitchen.yml</code></li>
+</ul>
+<pre><code class="console">kitchen converge
+</code></pre>
+
+<ul>
+<li>It will <code>install chef</code> and then will apply run_list to the instances.</li>
+<li>To verify, Login and check for java installation and version.</li>
+</ul>
+<pre><code class="console">kitchen login
+</code></pre>
+
+<ul>
+<li>Logins to docker instance created by kitchen.</li>
+</ul>
+<pre><code class="console">which java
+java -version
+which tomcat
+service tomcat status
+</code></pre>
+
+<h3 id="destroying-and-converging">Destroying and Converging</h3>
+<ul>
+<li>If you wish to re create the environment from scratch, use kitchen destroy followed by kitchen converge</li>
+</ul>
+<pre><code class="console">kitchen destroy
+kitchen list
+kitchen converge
+</code></pre>
+
+<ul>
+<li>Run converge command directly to <code>create</code> a instance and then <code>converge</code> it and apply <code>run_list</code> to it.</li>
+</ul>
+<p><strong>Verify</strong> the converge by visiting <code>http://ipaddress:8080</code> for tomcat homepage.</p>
+<p><img alt="tomcat-homepage" src="../images/pictures/04_2.png" /></p>
+<h2 id="simplifying-run_list">Simplifying Run_list</h2>
+<ul>
+<li>Lets make recipes simplified.</li>
+<li>From this recipie <code>./myapp/cookbooks/tomcat/recipes/default.rb</code> call all other recipes.</li>
+</ul>
+<pre><code class="ruby">#
+# Cookbook Name:: tomcat
+# Recipe:: default
+#
+# Copyright (c) 2017 The Authors, All Rights Reserved.
+
+include_recipe 'java'
+# we can also call the above recipe as
+# include_recipe 'java::default'
+
+include_recipe 'tomcat::install'
+include_recipe 'tomcat::service'
+</code></pre>
+
+<ul>
+<li>Now change the run_list in <code>./sysfoo/test/.kitchen.yml</code> and add only <code>tomcat::default</code></li>
+</ul>
+<pre><code class="ruby">suites:
+  - name: default
+    run_list:
+      - recipe[tomcat]
+</code></pre>
+
+<ul>
+<li>Once added, now converge again.</li>
+<li>You could get error because of java cookbook not found, but tomcat includes java in run_list.</li>
+<li>Now to add <em>depended java</em>, add java dependency entry in the metadata file <strong>./myapp/cookbooks/tomcat/metadata.rb</strong>.</li>
+</ul>
+<pre><code class="ruby">name 'tomcat'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'all_rights'
+description 'Installs/Configures tomcat'
+long_description 'Installs/Configures tomcat'
+version '0.1.0'
+
+depends 'java'
+</code></pre>
+
+<h2 id="managing-files">Managing Files</h2>
+<ul>
+<li>We will need to manage configurations eg. tomcat.conf</li>
+<li>since chef is a centralized configuration management system, we will keep the files centrally in cookbooks, which will then be copied to all managed nodes</li>
+</ul>
+<h3 id="generating-files">Generating Files</h3>
+<ul>
+<li>Create <code>tomcat.conf</code> to manage the configuration of tomcat in all nodes.</li>
+<li>Use <code>chef generate file</code> in tomcat cookbook directory.</li>
+</ul>
+<pre><code class="console">chef generate file cookbooks/tomcat tomcat.conf
+</code></pre>
+
+<ul>
+<li>Now <code>./sysfoo/cookbooks/tomcat/files/default/tomcat.conf</code> is generated using chef.</li>
+<li>Update <code>tomcat.conf</code> with the following content to manage tomcat.</li>
+</ul>
+<pre><code class="ruby">TOMCAT_CFG_LOADED=&quot;1&quot;
+
+JAVA_HOME=&quot;/usr/lib/jvm/jre&quot;
+JAVA_OPTS=&quot;-Xms64m -Xmx128m -XX:MaxPermSize=128M  \
+-Djava.security.egd=file:/dev/./urandom&quot;
+
+CATALINA_BASE=&quot;/usr/share/tomcat&quot;
+CATALINA_HOME=&quot;/usr/share/tomcat&quot;
+JASPER_HOME=&quot;/usr/share/tomcat&quot;
+CATALINA_TMPDIR=&quot;/var/cache/tomcat/temp&quot;
+
+TOMCAT_USER=&quot;tomcat&quot;
+
+SECURITY_MANAGER=&quot;false&quot;
+
+SHUTDOWN_WAIT=&quot;30&quot;
+
+SHUTDOWN_VERBOSE=&quot;false&quot;
+
+CATALINA_PID=&quot;/var/run/tomcat.pid&quot;
+</code></pre>
+
+<p>{todo}
+TIP: files/default</p>
+<h3 id="recipe-to-manage-cookbook-files">Recipe to manage cookbook files</h3>
+<ul>
+<li>Now to manage <code>tomcat.conf</code> create a recipe called <code>config.rb</code> in tomcat cookbook.</li>
+<li>Use <code>chef generate recipe</code> to generate recipe intomcat cookbook.</li>
+</ul>
+<pre><code class="console">chef generate recipe cookbooks/tomcat config
+</code></pre>
+
+<ul>
+<li>Now <code>./myapp/cookbooks/tomcat/recipes/config.rb</code> is generated.</li>
+<li>Add the following content into <code>config.rb</code></li>
+</ul>
+<pre><code class="ruby">cookbook_file '/etc/tomcat/tomcat.conf' do
+  source 'tomcat.conf'
+  owner 'tomcat'
+  group 'tomcat'
+  mode  0644
+  action :create
+end
+</code></pre>
+
+<h3 id="refreshing-services">Refreshing Services</h3>
+<ul>
+<li>We can use  <code>notifies</code> with <code>timers</code> to trigger another resources in a recipes.</li>
+<li>Let us add an entry to <em>notifies tomcat service</em> in <code>config.rb</code></li>
+</ul>
+<pre><code class="ruby">cookbook_file '/etc/tomcat/tomcat.conf' do
+  source 'tomcat.conf'
+  owner 'tomcat'
+  group 'tomcat'
+  mode  0644
+  action :create
+  notifies :restart, 'service[tomcat]', :delayed
+end
+</code></pre>
+
+<ul>
+<li>In the above <code>service tomcat</code> will be restarted if there is any change in <code>cookbook_file</code> resource.</li>
+<li>once <code>config.rb</code> recipe is created add an entry for run_list in <code>default.rb</code> of tomcat cookbook for applying it to nodes, as follows.</li>
+</ul>
+<pre><code class="ruby">include_recipe 'tomcat::config'
+</code></pre>
+
+<ul>
+<li>Now <code>kitchen converge</code> and check logs to see <code>service tomcat</code> is being <strong>restarted</strong> for every change made in <code>tomcat.conf</code> file.</li>
+<li>Now verify by logging into docker instance using <code>kitchen login</code>.</li>
+</ul>
+<p>[^devopsguru_blog]: Devopsguru Blog - http://devopsguru.tumblr.com/post/147717124737/chef-generate-app-vs-chef-generate-cookbook-vs</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../05_tdd_with_test_kitchen/" class="btn btn-neutral float-right" title="TDD with Test Kitchen">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../03_resources_and_recipies/" class="btn btn-neutral" title="Resources and Recipes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../03_resources_and_recipies/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../05_tdd_with_test_kitchen/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>
