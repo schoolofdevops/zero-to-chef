@@ -1,0 +1,16 @@
+site_name: Zero to Chef
+pages:
+  - Home: index.md
+  - Introduction to Chef: 01_introduction.md
+  - Resources and Recipes: 03_resources_and_recipies.md
+  - Cookbooks: 04_cookbooks.md
+  - TDD with Test Kitchen: 05_tdd_with_test_kitchen.md
+  - Setting up a Multi Node Cluster: 06_multi_node_cluster_setup.md
+  - Data Driven Cookbooks: 07_data_driven_cookbooks_attr_templates.md
+  - Customizing Community Cookbooks: 08_customizing_community_cookbooks.md
+  - Deploying Sysfoo App: 09_deployment.md
+  - Roles: 10_roles.md
+  - Search: 11_search.md
+  - Environments: 12_environments.md
+docs_dir: chapters
+theme: readthedocs
