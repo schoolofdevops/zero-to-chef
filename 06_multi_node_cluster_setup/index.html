@@ -81,7 +81,15 @@
     
         <ul>
         
-            <li><a class="toctree-l3" href="#hosted-chef-server">Hosted Chef Server</a></li>
+            <li><a class="toctree-l3" href="#setting-up-hosted-chef-server-environment">Setting up Hosted Chef Server Environment</a></li>
+        
+            <li><a class="toctree-l3" href="#setting-up-workstation">Setting Up Workstation</a></li>
+        
+            <li><a class="toctree-l3" href="#bootstrapping-a-managed-node">Bootstrapping a Managed Node</a></li>
+        
+            <li><a class="toctree-l3" href="#providing-configurations-to-the-node">Providing configurations to the Node</a></li>
+        
+            <li><a class="toctree-l3" href="#berkshelf">Berkshelf</a></li>
         
         </ul>
     
@@ -160,14 +168,27 @@
 <li>Chef Clients ('n' number of machines; could be VM, AWS EC2, etc..)  </li>
 </ul>
 <p><img alt="Multi-Node" src="../images/pictures/M2_1.png" /></p>
-<h2 id="hosted-chef-server">Hosted Chef Server</h2>
+<h2 id="setting-up-hosted-chef-server-environment">Setting up Hosted Chef Server Environment</h2>
+<p>Chef server comes in two flavors
+  * Open Source
+  * Enterprise</p>
+<p>Enterprise version of chef has two sub types
+  * Hosted
+  * On Premises</p>
+<p>In terms of features, both on prem and hosted versions are the same. The only difference is whether you use the SaaS solution from Chef, or you want to host it in house.  </p>
+<p>For this workshop, we would be using <strong>Hosted Enterprise Chef</strong> for the following reasons,</p>
+<ul>
+<li>Ease of setup : hosted version is a breeze to setup and you have a working chef server setup within minutes</li>
+<li>Resource Optimization: On Premises version of chef server takes a lot of resources to setup and use e.g. 4GB of RAM with atleast dual core for getting a decent operational version. Thats too much in most learning lab environments. Hosted version takes zero resources to setup.  </li>
+</ul>
+<p>Lets learn how to setup our hosted chef account...</p>
 <h3 id="creating-an-account">Creating an Account</h3>
 <ul>
 <li>Now let us create a account in <a href="https://manage.chef.io/login">chef.io</a> to manage our own hosted chef server.  </li>
 <li>Once account is created, verify and login.  </li>
 <li>Now create a organization of your own and then download chef-starter kit.  </li>
 </ul>
-<h3 id="setting-up-workstation">Setting Up Workstation</h3>
+<h2 id="setting-up-workstation">Setting Up Workstation</h2>
 <ul>
 <li>Upload  starter kit to the workspace. Its the <strong>chef-starter.zip</strong> file that you downloaded from chef server.  </li>
 <li>Upload the file to workspace and extract it. You should see <code>chef-repo</code> directory created after being extracted.  </li>
@@ -190,30 +211,14 @@
 <ul>
 <li>Copy <code>.chef</code> directory from <strong>chef-repo</strong> to <strong>workspace</strong>.</li>
 </ul>
-<pre><code class="console">cd /workspace
-mv chef-repo/.chef .
-ls -al
-</code></pre>
-
-<p>Edit /workspace/.chef/knife.rb<br />
-and update cookbook_path from</p>
-<pre><code>cookbook_path  [&quot;#{current_dir}/../cookbooks&quot;]
+<pre><code class="console">
+mv /workspace/chef-repo/.chef  /workspace
 
 </code></pre>
 
-<p>to</p>
-<pre><code>cookbook_path       [&quot;cookbooks&quot;]
-
-</code></pre>
-
-<p>Change into chapter6/sysfoo and validate</p>
-<pre><code>cd /workspace/chapter6/sysfoo
-
-knife client list
-</code></pre>
-
+<p>Alternately you could also create a symbolic link/symlink.</p>
 <p>From here on all  <code>knife</code> commands work from any subdirectory of /workspace.</p>
-<h3 id="bootstrapping-a-managed-node">Bootstrapping a Managed Node</h3>
+<h2 id="bootstrapping-a-managed-node">Bootstrapping a Managed Node</h2>
 <ul>
 <li>Now run <code>knife client list</code> to get the list of client associated with the hosted chef-server.</li>
 <li>In our case we don't have any client as of now, so lets start adding nodes by using <code>knife bootstrap</code> command.</li>
@@ -287,9 +292,22 @@ knife client list
 <pre><code class="console">knife node show app1
 </code></pre>
 
-<h3 id="providing-configurations-to-the-node">Providing configurations to the Node</h3>
-<p>Change into chef-sysfoo directory on workstation.</p>
-<p>Upload initial cookbooks</p>
+<h2 id="providing-configurations-to-the-node">Providing configurations to the Node</h2>
+<p>To provide configurations, you would need to upload the cookbooks to chef server and set the run list.</p>
+<p>Before we do so, we also need to updated the path where knife would look in to find the cookbooks.</p>
+<p>Edit /workspace/.chef/knife.rb<br />
+and update cookbook_path from</p>
+<pre><code>cookbook_path  [&quot;#{current_dir}/../cookbooks&quot;]
+
+</code></pre>
+
+<p>to</p>
+<pre><code>cookbook_path       [&quot;cookbooks&quot;]
+
+</code></pre>
+
+<p>Change into chapter6/sysfoo directory on workstation.</p>
+<p>Upload the  cookbooks that we created and tested locally earlier.</p>
 <pre><code>knife cookbook upload java tomcat
 
 </code></pre>
@@ -315,7 +333,7 @@ sudo chef-client
 </code></pre>
 
 <p>Did chef-client cookbook get uploaded successfully?   If not, observe the error and try to deduct the root cause.</p>
-<h3 id="berkshelf">Berkshelf</h3>
+<h2 id="berkshelf">Berkshelf</h2>
 <p>Berkshelf is a dependency manager for Chef cookbooks. With it, you can easily depend on community cookbooks and have them safely included in your workflow. You can also ensure that your CI systems reproducibly select the same cookbook versions, and can upload and bundle cookbook dependencies without needing a locally maintained copy. Berkshelf is included in the Chef Development Kit.</p>
 <ul>
 <li>Now look into the downloaded <code>chef-client</code> cookbook.</li>
@@ -335,7 +353,18 @@ cd ../..
 <pre><code class="console">knife node run_list add app1 &quot;recipe[chef-client]&quot;
 </code></pre>
 
-<h4 id="providing-run-list-at-the-bootstrap-time">Providing Run List at the Bootstrap time</h4>
+<p>To apply this recipe, login to <strong>node1</strong> and run chef client as,</p>
+<pre><code>ssh devops@node1
+sudo chef-client
+</code></pre>
+
+<h4 id="providing-run-list-while-bootstrapping">Providing run list while bootstrapping</h4>
+<p>For node1, we did the following,
+  * Bootstrapped the node
+  * Defined run list
+  * Logged in to the node and run chef-client</p>
+<p>For initial node this was needed as you  are learning to apply one concept at a time, and you did not have the cookbooks uploaded on the server. Now that its all ready, you could combine these operations into one by defining the run list, right at the bootstrap time.  </p>
+<p>Lets bootstrap <strong>node2</strong> this time with tomcat and java configs</p>
 <pre><code class="console">knife bootstrap node2 -x devops --sudo -N app2 -r &quot;recipe[tomcat],recipe[chef-client]&quot;
 </code></pre>
 
