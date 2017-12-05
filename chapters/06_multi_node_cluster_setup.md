@@ -10,7 +10,25 @@ This would include 3 components,
 
 ![Multi-Node](images/pictures/M2_1.png)
 
-## Hosted Chef Server
+## Setting up Hosted Chef Server Environment
+
+Chef server comes in two flavors
+  * Open Source
+  * Enterprise
+
+Enterprise version of chef has two sub types
+  * Hosted
+  * On Premises
+
+In terms of features, both on prem and hosted versions are the same. The only difference is whether you use the SaaS solution from Chef, or you want to host it in house.  
+
+For this workshop, we would be using **Hosted Enterprise Chef** for the following reasons,
+
+  * Ease of setup : hosted version is a breeze to setup and you have a working chef server setup within minutes
+  * Resource Optimization: On Premises version of chef server takes a lot of resources to setup and use e.g. 4GB of RAM with atleast dual core for getting a decent operational version. Thats too much in most learning lab environments. Hosted version takes zero resources to setup.  
+
+Lets learn how to setup our hosted chef account...
+
 
 ### Creating an Account
 
@@ -18,7 +36,7 @@ This would include 3 components,
 - Once account is created, verify and login.  
 - Now create a organization of your own and then download chef-starter kit.  
 
-### Setting Up Workstation
+## Setting Up Workstation
 
 - Upload  starter kit to the workspace. Its the **chef-starter.zip** file that you downloaded from chef server.  
 - Upload the file to workspace and extract it. You should see `chef-repo` directory created after being extracted.  
@@ -44,37 +62,17 @@ The above command will return the **orgname-validator** client. If it does,you h
 - Copy `.chef` directory from **chef-repo** to **workspace**.
 
 ```console
-cd /workspace
-mv chef-repo/.chef .
-ls -al
-```
 
-
-Edit /workspace/.chef/knife.rb  
-and update cookbook_path from
-
-```
-cookbook_path  ["#{current_dir}/../cookbooks"]
-
-```
-to
-
-```
-cookbook_path       ["cookbooks"]
+mv /workspace/chef-repo/.chef  /workspace
 
 ```
 
-Change into chapter6/sysfoo and validate
+Alternately you could also create a symbolic link/symlink.
 
-```
-cd /workspace/chapter6/sysfoo
-
-knife client list
-```
 
 From here on all  `knife` commands work from any subdirectory of /workspace.
 
-### Bootstrapping a Managed Node
+## Bootstrapping a Managed Node
 
 - Now run `knife client list` to get the list of client associated with the hosted chef-server.
 - In our case we don't have any client as of now, so lets start adding nodes by using `knife bootstrap` command.
@@ -113,10 +111,30 @@ knife node list
 knife node show app1
 ```
 
-### Providing configurations to the Node
-Change into chef-sysfoo directory on workstation.
+## Providing configurations to the Node
 
-Upload initial cookbooks
+To provide configurations, you would need to upload the cookbooks to chef server and set the run list.
+
+Before we do so, we also need to updated the path where knife would look in to find the cookbooks.
+
+Edit /workspace/.chef/knife.rb  
+and update cookbook_path from
+
+```
+cookbook_path  ["#{current_dir}/../cookbooks"]
+
+```
+to
+
+```
+cookbook_path       ["cookbooks"]
+
+```
+
+
+Change into chapter6/sysfoo directory on workstation.
+
+Upload the  cookbooks that we created and tested locally earlier.
 
 ```
 knife cookbook upload java tomcat
@@ -155,7 +173,7 @@ knife cookbook upload chef-client
 Did chef-client cookbook get uploaded successfully?   If not, observe the error and try to deduct the root cause.
 
 
-### Berkshelf
+## Berkshelf
 
 Berkshelf is a dependency manager for Chef cookbooks. With it, you can easily depend on community cookbooks and have them safely included in your workflow. You can also ensure that your CI systems reproducibly select the same cookbook versions, and can upload and bundle cookbook dependencies without needing a locally maintained copy. Berkshelf is included in the Chef Development Kit.
 
@@ -179,9 +197,24 @@ Lets now add **chef-client** recipe to the runlist of node1.
 knife node run_list add app1 "recipe[chef-client]"
 ```
 
+To apply this recipe, login to **node1** and run chef client as,
+
+```
+ssh devops@node1
+sudo chef-client
+```
 
 
-#### Providing Run List at the Bootstrap time
+#### Providing run list while bootstrapping
+
+For node1, we did the following,
+  * Bootstrapped the node
+  * Defined run list
+  * Logged in to the node and run chef-client
+
+For initial node this was needed as you  are learning to apply one concept at a time, and you did not have the cookbooks uploaded on the server. Now that its all ready, you could combine these operations into one by defining the run list, right at the bootstrap time.  
+
+Lets bootstrap **node2** this time with tomcat and java configs
 
 ```console
 knife bootstrap node2 -x devops --sudo -N app2 -r "recipe[tomcat],recipe[chef-client]"
