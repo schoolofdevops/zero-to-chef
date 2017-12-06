@@ -44,7 +44,7 @@ description "Production Environment"
 cookbook "myhaproxy", "= 0.3.0"
 default_attributes({
   "tomcat" => { "deploy"  => {
-                 "url" => 'https://9-94848332-gh.circle-artifacts.com/0/tmp/circle-artifacts.9U1rN6X/sysfoo.war'}
+                 "url" => 'https://11-94848332-gh.circle-artifacts.com/0/tmp/circle-artifacts.6gxaMPh/sysfoo.war'}
               }
 })
 ```

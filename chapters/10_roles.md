@@ -1,6 +1,6 @@
 # Roles
 
-- To create a roles in chef DSL we need to create a folder named `roles` inside the repo directory `(myapp/roles)`.
+- To create a roles in chef DSL we need to create a folder named `roles` inside the repo directory `(sysfoo/roles)`.
 - A sample role file consist of the following,
   - Name
   - Description
@@ -18,11 +18,11 @@ override_attributes({
 })
 ```
 
-## Creating Roles for myapp
+## Creating Roles for sysfoo
 
 - Now create a roles for application and load_balancer.
-  - myapp/roles/app.rb
-  - myapp/roles/lb.rb
+  - sysfoo/roles/app.rb
+  - sysfoo/roles/lb.rb
 
 - Add the following content to app.rb
 
@@ -52,7 +52,7 @@ override_attributes({
 
 ## Uploading Roles to Chef Server
 
-- From the `myapp` directory using knife command upload the roles from file **app.rb** and **lb.rb**
+- From the `sysfoo` directory using knife command upload the roles from file **app.rb** and **lb.rb**
 
 ```console
 knife role from file app.rb lb.rb
