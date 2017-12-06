@@ -101,7 +101,7 @@
     
         <ul>
         
-            <li><a class="toctree-l3" href="#creating-roles-for-myapp">Creating Roles for myapp</a></li>
+            <li><a class="toctree-l3" href="#creating-roles-for-sysfoo">Creating Roles for sysfoo</a></li>
         
             <li><a class="toctree-l3" href="#uploading-roles-to-chef-server">Uploading Roles to Chef Server</a></li>
         
@@ -159,7 +159,7 @@
               
                 <h1 id="roles">Roles</h1>
 <ul>
-<li>To create a roles in chef DSL we need to create a folder named <code>roles</code> inside the repo directory <code>(myapp/roles)</code>.</li>
+<li>To create a roles in chef DSL we need to create a folder named <code>roles</code> inside the repo directory <code>(sysfoo/roles)</code>.</li>
 <li>A sample role file consist of the following,</li>
 <li>Name</li>
 <li>Description</li>
@@ -179,12 +179,12 @@ override_attributes({
 })
 </code></pre>
 
-<h2 id="creating-roles-for-myapp">Creating Roles for myapp</h2>
+<h2 id="creating-roles-for-sysfoo">Creating Roles for sysfoo</h2>
 <ul>
 <li>Now create a roles for application and load_balancer.</li>
-<li>myapp/roles/app.rb</li>
+<li>sysfoo/roles/app.rb</li>
 <li>
-<p>myapp/roles/lb.rb</p>
+<p>sysfoo/roles/lb.rb</p>
 </li>
 <li>
 <p>Add the following content to app.rb</p>
@@ -215,7 +215,7 @@ override_attributes({
 
 <h2 id="uploading-roles-to-chef-server">Uploading Roles to Chef Server</h2>
 <ul>
-<li>From the <code>myapp</code> directory using knife command upload the roles from file <strong>app.rb</strong> and <strong>lb.rb</strong></li>
+<li>From the <code>sysfoo</code> directory using knife command upload the roles from file <strong>app.rb</strong> and <strong>lb.rb</strong></li>
 </ul>
 <pre><code class="console">knife role from file app.rb lb.rb
 </code></pre>

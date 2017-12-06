@@ -164,7 +164,7 @@
 <ul>
 <li>Instead of adding the additional web servers manually to the list of haproxy, we can use search inside recipe to perform that.</li>
 <li>Now we can change the default recipe as follows</li>
-<li>Path: <em>myapp/cookbooks/myhaproxy/recipes/default.rb</em></li>
+<li>Path: <em>sysfoo/cookbooks/myhaproxy/recipes/default.rb</em></li>
 </ul>
 <pre><code class="ruby">all_web_nodes = search(&quot;node&quot;, &quot;role:app&quot;)
 
@@ -191,7 +191,7 @@ include_recipe 'haproxy::default'
 
 <ul>
 <li>Now before uploading this to chef server we will change the version of cookbook by adding the version in metadata.</li>
-<li>Change the version in <code>myapp/cookbooks/myhaproxy/metadata.rb</code> from <strong>0.1.0</strong> to <strong>0.2.0</strong>.</li>
+<li>Change the version in <code>sysfoo/cookbooks/myhaproxy/metadata.rb</code> from <strong>0.1.0</strong> to <strong>0.2.0</strong>.</li>
 <li>Upload the myhaproxy cookbook.</li>
 </ul>
 <h2 id="verifying-search-functionality">Verifying Search Functionality</h2>
