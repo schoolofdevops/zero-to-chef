@@ -29,7 +29,7 @@ override_attributes({
 ```ruby
 name "app"
 description "Tomcat Application Server"
-run_list "recipe[base]", "recipe[tomcat]", "recipe[chef-client]", "recipe[myapp::deploy]"
+run_list "recipe[base]", "recipe[tomcat]", "recipe[chef-client]", "recipe[sysfoo::deploy]"
 override_attributes({
   "chef_client" => { "interval" => 120,
                      "splay" => 30

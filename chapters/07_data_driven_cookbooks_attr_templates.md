@@ -145,23 +145,20 @@ chef generate cookbook cookbooks/base
 - Now move the `base.rb` to `default.rb` of base cookbook.
 
 ```console
-mv /workspace/base.rb cookbooks/base/recipes/default.rb
+mv /workspace/chapter3/base.rb cookbooks/base/recipes/default.rb
 ```
 
-- Add `default` recipe to `.kitchen.yml` runlist
+- Add `base::default` recipe to the run_list
 
-```ruby
-suites:
-  - name: default
-    run_list:
-      - recipe[tomcat]
-      - recipe[base::default]
+```
+knife node run_list add app1 "recipe[base]"
 ```
 
-- Apply using kitchen
+- Apply on node1
 
 ```console
-kitchen converge
+ssh devops@node1
+sudo chef-client
 ```
 
 - **It fails** because the service name for rhel/centos is `ntpd` and **not ntp** as like debian.
@@ -220,7 +217,8 @@ end
 - Now apply again using kitchen
 
 ```
-kitchen converge
+ssh devop@node1
+sudo chef-client
 ```
 
 - It is successful now and service is started based on platform.
