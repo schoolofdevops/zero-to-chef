@@ -1,4 +1,4 @@
-# Creating Configuration Profiles with Environments
+# Chapter 12: Creating Configuration Profiles with Environments
 
 In this lab we are going to use chef's environment primitive to,
   * Create different configuration profiles. Setup environment specific configurations.

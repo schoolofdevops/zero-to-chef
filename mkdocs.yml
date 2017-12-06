@@ -12,5 +12,6 @@ pages:
   - Roles: 10_roles.md
   - Search: 11_search.md
   - Environments: 12_environments.md
+  - Chef Solo: 13-applying-with-solo.md
 docs_dir: chapters
 theme: readthedocs
