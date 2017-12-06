@@ -305,23 +305,20 @@ end
 <ul>
 <li>Now move the <code>base.rb</code> to <code>default.rb</code> of base cookbook.</li>
 </ul>
-<pre><code class="console">mv /workspace/base.rb cookbooks/base/recipes/default.rb
+<pre><code class="console">mv /workspace/chapter3/base.rb cookbooks/base/recipes/default.rb
 </code></pre>
 
 <ul>
-<li>Add <code>default</code> recipe to <code>.kitchen.yml</code> runlist</li>
+<li>Add <code>base::default</code> recipe to the run_list</li>
 </ul>
-<pre><code class="ruby">suites:
-  - name: default
-    run_list:
-      - recipe[tomcat]
-      - recipe[base::default]
+<pre><code>knife node run_list add app1 &quot;recipe[base]&quot;
 </code></pre>
 
 <ul>
-<li>Apply using kitchen</li>
+<li>Apply on node1</li>
 </ul>
-<pre><code class="console">kitchen converge
+<pre><code class="console">ssh devops@node1
+sudo chef-client
 </code></pre>
 
 <ul>
@@ -379,7 +376,8 @@ end
 <ul>
 <li>Now apply again using kitchen</li>
 </ul>
-<pre><code>kitchen converge
+<pre><code>ssh devop@node1
+sudo chef-client
 </code></pre>
 
 <ul>

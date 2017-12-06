@@ -174,16 +174,11 @@ chef generate cookbook cookbooks/myhaproxy
 <ul>
 <li>Add dependency in <code>myhaproxy/metadata.rb</code></li>
 </ul>
-<pre><code class="ruby">depends 'haproxy', '~&gt; 1.6.6'
+<pre><code class="ruby">depends 'haproxy', '= 1.6.7'
 </code></pre>
 
 <ul>
-<li>
-<p>Here <code>~&gt; 1.6.6</code> will be calling the community cookbook of haproxy one version level higher to this, i.e, <code>1.6.7</code>.</p>
-</li>
-<li>
-<p>Now add the wrapper content to include and modify <code>haproxy</code> cookbook by adding the following in <code>myhaproxy/recipes/default.rb</code></p>
-</li>
+<li>Now add the wrapper content to include and modify <code>haproxy</code> cookbook by adding the following in <code>myhaproxy/recipes/default.rb</code></li>
 </ul>
 <pre><code class="ruby">node.default['haproxy']['members'] = [{
      &quot;hostname&quot; =&gt; &quot;node1&quot;,
