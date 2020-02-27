@@ -8,7 +8,7 @@
   
   <meta name="author" content="Gourav Shah">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Customizing Community Cookbooks - Chef Tutorial</title>
+  <title>Markdown Cheatsheet - Chef Tutorial</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Customizing Community Cookbooks";
-    var mkdocs_page_input_path = "08_customizing_community_cookbooks.md";
-    var mkdocs_page_url = "/08_customizing_community_cookbooks/";
+    var mkdocs_page_name = "Markdown Cheatsheet";
+    var mkdocs_page_input_path = "markdown_cheatsheet.md";
+    var mkdocs_page_url = "/markdown_cheatsheet/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -93,27 +93,9 @@
     <a class="" href="../07_data_driven_cookbooks_attr_templates/">Data Driven Cookbooks</a>
 	    </li>
           
-            <li class="toctree-l1 current">
+            <li class="toctree-l1">
 		
-    <a class="current" href="./">Customizing Community Cookbooks</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l2"><a href="#customizing-community-cookbooks">Customizing Community Cookbooks</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l3" href="#customizing-strategy">Customizing Strategy</a></li>
-        
-            <li><a class="toctree-l3" href="#creating-myhaproxy-cookbook">Creating myhaproxy cookbook</a></li>
-        
-            <li><a class="toctree-l3" href="#resolve-dependency-and-bootstrapping">Resolve Dependency and Bootstrapping</a></li>
-        
-            <li><a class="toctree-l3" href="#verifying-load-balancer">Verifying Load Balancer</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../08_customizing_community_cookbooks/">Customizing Community Cookbooks</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -163,10 +145,10 @@
     
       
     
-    <li>Customizing Community Cookbooks</li>
+    <li>Markdown Cheatsheet</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/schoolofdevops/zero-to-chef/edit/master/chapters/08_customizing_community_cookbooks.md"
+        <a href="https://github.com/schoolofdevops/zero-to-chef/edit/master/chapters/markdown_cheatsheet.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -176,76 +158,171 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="customizing-community-cookbooks">Customizing Community Cookbooks</h1>
-<h2 id="customizing-strategy">Customizing Strategy</h2>
+                <h1 id="markdown-cheatsheet">Markdown Cheatsheet</h1>
+<p>{pagebreak}</p>
 <ul>
-<li>Fork - Directly use the community cookbook by forking the upstream cookbook.</li>
-<li>Wrapper - Create a wrapper cookbook which calls the community cookbook and customize it, by creating a dependency.</li>
+<li>
+<h1 id="part">Part</h1>
+</li>
 </ul>
-<h2 id="creating-myhaproxy-cookbook">Creating myhaproxy cookbook</h2>
-<ul>
-<li>Generate a cookbook called <code>myhaproxy</code> inside <code>sysfoo</code>.</li>
+<h1 id="section">Section</h1>
+<h2 id="sub-section">Sub Section</h2>
+<h3 id="sub-sub-section">Sub Sub Section</h3>
+<h4 id="sub-sub-sub-section">Sub Sub Sub Section</h4>
+<p>This is the
+first para  </p>
+<p>This is the 2nd para
+separated by a line<br />
+This is the 3rd para separated by 2 spaces at the end of line before  </p>
+<p>c&gt;  This is a centered text</p>
+<p><em>italic</em></p>
+<p><strong>bold</strong></p>
+<p><strong><em>bold-italic</em></strong></p>
+<p><strong><em>_underlined</em></strong>_</p>
+<ol>
+<li>Numbered list item 1</li>
+<li>Numbered list item 2</li>
+<li>
+<p>Numbered list item 3 with *</p>
+<p>para between list item 4 indents,
+blank like after prev item, num seq continues</p>
+</li>
+<li>
+<p>Numbered list item 3  </p>
+</li>
+<li>
+<p>Bullet list item 1</p>
+</li>
+<li>Bullet list item 2</li>
+<li>Sub Item 2.1<ul>
+<li>Sub Sub item 2.1.1</li>
 </ul>
-<pre><code class="console">cd /workspace/chapter8/sysfoo/
-chef generate cookbook cookbooks/myhaproxy
+</li>
+<li>Bullet list item 3</li>
+</ol>
+<pre><code>![caption](images/path_to_image)
 </code></pre>
 
-<ul>
-<li>Add dependency in <code>myhaproxy/metadata.rb</code></li>
-</ul>
-<pre><code class="ruby">depends 'haproxy', '= 1.6.7'
+<p>Header</p>
+<p>: description of the header</p>
+<blockquote>
+<p><strong>This is a Block Quote</strong></p>
+<p>Block Quote gets indented</p>
+<blockquote>
+<p>block quote inside a block quote</p>
+</blockquote>
+</blockquote>
+<p><strong>Text Blocks</strong></p>
+<p>Asides</p>
+<p>A&gt; ## This is an aside
+A&gt;
+A&gt; This gets printed in a block</p>
+<p>Warnings</p>
+<p>W&gt; ## This is a Warning
+W&gt;
+W&gt; Always wear the seat belt</p>
+<p>Tips</p>
+<p>T&gt; ## This is a tip
+T&gt;
+T&gt; Bet for number 5 on that table</p>
+<p>Errors</p>
+<p>E&gt; ## This prints an error
+E&gt;
+E&gt; Oops ! You just barged into ladies toilet</p>
+<p>Information</p>
+<p>I&gt; ## This is to print info
+I&gt;
+I&gt;  For your eyes only</p>
+<p>Questions</p>
+<p>Q&gt; ## This prints questions
+Q&gt;
+Q&gt; What came first, chicken or the egg?</p>
+<p>Discussions</p>
+<p>D&gt; ## This is for Discussions
+D&gt;
+D&gt; Lets talk about Life of Pie</p>
+<p>Exercises</p>
+<p>X&gt; ## This is for exercises
+X&gt;
+X&gt; 10 mins on treadmill
+X&gt; followed by two sets of pushups</p>
+<p><strong>Writing Code</strong></p>
+<p>Method 1 : 4 space indentation</p>
+<pre><code>echo "this starts with 4 indents"
+ls -l
+cat /etc/issue
+uptime
+</code></pre>
+<p>Method 2: 8 tildes</p>
+<pre><code>echo &quot;this has 8 tildes on the top and bottom&quot;
+echo &quot;8 tildes is a best practice, but any no. will do &quot;
+uptime
+ls -l
+cat /etc/issue
 </code></pre>
 
-<ul>
-<li>Now add the wrapper content to include and modify <code>haproxy</code> cookbook by adding the following in <code>myhaproxy/recipes/default.rb</code></li>
-</ul>
-<pre><code class="ruby">node.default['haproxy']['members'] = [{
-     &quot;hostname&quot; =&gt; &quot;node1&quot;,
-     &quot;ipaddress&quot; =&gt; &quot;node1&quot;,
-     &quot;port&quot; =&gt; 8080,
-     &quot;ssl_port&quot; =&gt; 8080
-   },
-   {
-    &quot;hostname&quot; =&gt; &quot;node2&quot;,
-    &quot;ipaddress&quot; =&gt; &quot;node2&quot;,
-    &quot;port&quot; =&gt; 8080,
-    &quot;ssl_port&quot; =&gt; 8080
-  }]
-
-
-node.default['haproxy']['incoming_port'] = 8080
-
-
-include_recipe 'haproxy::default'
+<p>Method 3 : include code from file</p>
+<p>&lt;&lt;(code/sample_code.sh)</p>
+<p>&lt;&lt;<a href="code/sample_code.sh">sample_code_with_title</a></p>
+<p>Method 4 : lp-code style</p>
+<p>{title="Listing ", lang=html, linenos=off}</p>
+<pre><code>echo &quot;this is autocompleted by leanpub plugin for atom&quot;
+uptime
+df -h
+ls -l  
 </code></pre>
 
-<h2 id="resolve-dependency-and-bootstrapping">Resolve Dependency and Bootstrapping</h2>
-<ul>
-<li>Use berkshelf to resolve dependency of <code>myhaproxy</code> cookbook.</li>
-<li>Upload the cookbook to server.</li>
-<li>Now bootstrap <code>node4</code> by naming it as <code>lb</code> and adding the following run_list</li>
-<li>base</li>
-<li>chef-client</li>
-<li>myhaproxy</li>
-</ul>
-<h2 id="verifying-load-balancer">Verifying Load Balancer</h2>
-<ul>
-<li>After bootstrapping visit http://ip:8084 to check the load Balancer.</li>
-<li>It is 8084 because the host port 8080 is mapped to 8084.</li>
-</ul>
+<p>Method 5: back ticks ``</p>
+<p><code>echo "this is a short code snippet"</code></p>
+<p><strong>Footnotes</strong></p>
+<p>This is a text para
+and I am writing a
+footnote[^tag1] here</p>
+<p>Later on I add the footnote as</p>
+<p>[^tag1]: description about the footnote. Should contain blank line before and after</p>
+<p><strong>Crosslinks</strong></p>
+<p>This is a cross link to {##Sub Section}</p>
+<p><strong>Table</strong></p>
+<table>
+<thead>
+<tr>
+<th>header1</th>
+<th>header2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r1-c1</td>
+<td>r1-c2</td>
+</tr>
+<tr>
+<td>r2-c1</td>
+<td>r2-c2</td>
+</tr>
+<tr>
+<td>r3-c1</td>
+<td>r3-c2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="left">Header One</th>
+<th align="left">Header Two</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Item One</td>
+<td align="left">Item Two</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../09_deployment/" class="btn btn-neutral float-right" title="Deploying Sysfoo App">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../07_data_driven_cookbooks_attr_templates/" class="btn btn-neutral" title="Data Driven Cookbooks"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -273,10 +350,6 @@ include_recipe 'haproxy::default'
           <a href="https://github.com/schoolofdevops/zero-to-chef/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../07_data_driven_cookbooks_attr_templates/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../09_deployment/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

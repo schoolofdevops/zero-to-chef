@@ -1,108 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    
     <url>
-     <loc>/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/01_introduction/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/01_introduction/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/03_resources_and_recipies/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/03_resources_and_recipies/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/04_cookbooks/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/04_cookbooks/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/05_tdd_with_test_kitchen/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/05_tdd_with_test_kitchen/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/06_multi_node_cluster_setup/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/06_multi_node_cluster_setup/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/07_data_driven_cookbooks_attr_templates/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/07_data_driven_cookbooks_attr_templates/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/08_customizing_community_cookbooks/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/08_customizing_community_cookbooks/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/09_deployment/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/09_deployment/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/10_roles/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/10_roles/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/11_search/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/11_search/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/12_environments/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/12_environments/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/13-applying-with-solo/</loc>
-     <lastmod>2017-12-06</lastmod>
+     <loc>https://chef-tutorial.schoolofdevops.com/13-applying-with-solo/</loc>
+     <lastmod>2020-02-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
 </urlset>

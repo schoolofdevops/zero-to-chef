@@ -8,7 +8,7 @@
   
   <meta name="author" content="Gourav Shah">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Customizing Community Cookbooks - Chef Tutorial</title>
+  <title>Preface - Chef Tutorial</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Customizing Community Cookbooks";
-    var mkdocs_page_input_path = "08_customizing_community_cookbooks.md";
-    var mkdocs_page_url = "/08_customizing_community_cookbooks/";
+    var mkdocs_page_name = "Preface";
+    var mkdocs_page_input_path = "preface.md";
+    var mkdocs_page_url = "/preface/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -93,27 +93,9 @@
     <a class="" href="../07_data_driven_cookbooks_attr_templates/">Data Driven Cookbooks</a>
 	    </li>
           
-            <li class="toctree-l1 current">
+            <li class="toctree-l1">
 		
-    <a class="current" href="./">Customizing Community Cookbooks</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l2"><a href="#customizing-community-cookbooks">Customizing Community Cookbooks</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l3" href="#customizing-strategy">Customizing Strategy</a></li>
-        
-            <li><a class="toctree-l3" href="#creating-myhaproxy-cookbook">Creating myhaproxy cookbook</a></li>
-        
-            <li><a class="toctree-l3" href="#resolve-dependency-and-bootstrapping">Resolve Dependency and Bootstrapping</a></li>
-        
-            <li><a class="toctree-l3" href="#verifying-load-balancer">Verifying Load Balancer</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../08_customizing_community_cookbooks/">Customizing Community Cookbooks</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -163,10 +145,10 @@
     
       
     
-    <li>Customizing Community Cookbooks</li>
+    <li>Preface</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/schoolofdevops/zero-to-chef/edit/master/chapters/08_customizing_community_cookbooks.md"
+        <a href="https://github.com/schoolofdevops/zero-to-chef/edit/master/chapters/preface.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -176,76 +158,12 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="customizing-community-cookbooks">Customizing Community Cookbooks</h1>
-<h2 id="customizing-strategy">Customizing Strategy</h2>
-<ul>
-<li>Fork - Directly use the community cookbook by forking the upstream cookbook.</li>
-<li>Wrapper - Create a wrapper cookbook which calls the community cookbook and customize it, by creating a dependency.</li>
-</ul>
-<h2 id="creating-myhaproxy-cookbook">Creating myhaproxy cookbook</h2>
-<ul>
-<li>Generate a cookbook called <code>myhaproxy</code> inside <code>sysfoo</code>.</li>
-</ul>
-<pre><code class="console">cd /workspace/chapter8/sysfoo/
-chef generate cookbook cookbooks/myhaproxy
-</code></pre>
-
-<ul>
-<li>Add dependency in <code>myhaproxy/metadata.rb</code></li>
-</ul>
-<pre><code class="ruby">depends 'haproxy', '= 1.6.7'
-</code></pre>
-
-<ul>
-<li>Now add the wrapper content to include and modify <code>haproxy</code> cookbook by adding the following in <code>myhaproxy/recipes/default.rb</code></li>
-</ul>
-<pre><code class="ruby">node.default['haproxy']['members'] = [{
-     &quot;hostname&quot; =&gt; &quot;node1&quot;,
-     &quot;ipaddress&quot; =&gt; &quot;node1&quot;,
-     &quot;port&quot; =&gt; 8080,
-     &quot;ssl_port&quot; =&gt; 8080
-   },
-   {
-    &quot;hostname&quot; =&gt; &quot;node2&quot;,
-    &quot;ipaddress&quot; =&gt; &quot;node2&quot;,
-    &quot;port&quot; =&gt; 8080,
-    &quot;ssl_port&quot; =&gt; 8080
-  }]
-
-
-node.default['haproxy']['incoming_port'] = 8080
-
-
-include_recipe 'haproxy::default'
-</code></pre>
-
-<h2 id="resolve-dependency-and-bootstrapping">Resolve Dependency and Bootstrapping</h2>
-<ul>
-<li>Use berkshelf to resolve dependency of <code>myhaproxy</code> cookbook.</li>
-<li>Upload the cookbook to server.</li>
-<li>Now bootstrap <code>node4</code> by naming it as <code>lb</code> and adding the following run_list</li>
-<li>base</li>
-<li>chef-client</li>
-<li>myhaproxy</li>
-</ul>
-<h2 id="verifying-load-balancer">Verifying Load Balancer</h2>
-<ul>
-<li>After bootstrapping visit http://ip:8084 to check the load Balancer.</li>
-<li>It is 8084 because the host port 8080 is mapped to 8084.</li>
-</ul>
+                <h1 id="preface">Preface</h1>
+<p>Learn from zero and end up being a chef master.</p>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../09_deployment/" class="btn btn-neutral float-right" title="Deploying Sysfoo App">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../07_data_driven_cookbooks_attr_templates/" class="btn btn-neutral" title="Data Driven Cookbooks"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -273,10 +191,6 @@ include_recipe 'haproxy::default'
           <a href="https://github.com/schoolofdevops/zero-to-chef/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../07_data_driven_cookbooks_attr_templates/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../09_deployment/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
